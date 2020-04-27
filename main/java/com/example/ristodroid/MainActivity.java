@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // definisco l'intenzione
-                Intent MainClient = new Intent(MainActivity.this, MainClient.class);
+                Intent MainClient = new Intent(getApplicationContext(), MainClient.class);
                 // passo all'attivazione dell'activity MainClient.java
                 startActivity(MainClient);
             }

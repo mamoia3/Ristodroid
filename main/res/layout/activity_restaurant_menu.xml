@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="clientUi.RestaurantMenuActivity">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_general"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabBackground="@color/cardview_light_background"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="#717278"
+            app:tabMode="scrollable"
+            app:tabTextColor="#95000000"
+            tools:ignore="MissingConstraints,PrivateResource">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_ordine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ordine"
+                app:tint="#7125A0D1" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_antipasti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/antipasti" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_pizze"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pizze" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_primi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/primi" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_secondi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/secondi" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_dessert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dessert" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_digestivi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digestivi" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_bevande"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bevande" />
+        </com.google.android.material.tabs.TabLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentmenu"
+        android:name="clientUi.FragmentMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

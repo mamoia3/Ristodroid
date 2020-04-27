@@ -10,9 +10,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="primi_piatti">primi piatti</string>
-    <string name="secondi_piatti">secondi piatti</string>
+    <string name="primi">primi</string>
+    <string name="secondi">secondi</string>
     <string name="dessert">dessert</string>
-    <string name="terzi_piatti">terzi piatti</string>
-    <string name="invia">Invia</string>
+    <string name="pizze">pizze</string>
+    <string name="bevande">bevande</string>
+    <string name="digestivi">digestivi</string>
+    <string name="antipasti">antipasti</string>
+    <string name="ordine">ordine</string>
+
 </resources>

@@ -15,12 +15,9 @@ import com.example.ristodroid.R;
 
 public class FragmentMenu extends Fragment {
 
-    Button b1;
-
     public FragmentMenu() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,13 +25,6 @@ public class FragmentMenu extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
-        b1 = view.findViewById(R.id.btn_fragment);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MainClient.class));
-            }
-        });
 
         return view;
     }
