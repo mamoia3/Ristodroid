@@ -15,6 +15,5 @@ public class RestaurantMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_menu);
 
 
-
     }
 }

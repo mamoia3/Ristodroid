@@ -1,33 +1,33 @@
 package clientUi;
 
-import android.content.Intent;
 import android.os.Bundle;
+import androidx.fragment.app.ListFragment;
+import android.widget.ArrayAdapter;
 
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-
-import com.example.ristodroid.R;
+public class FragmentMenu extends ListFragment {
 
 
-public class FragmentMenu extends Fragment {
 
     public FragmentMenu() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_menu, container, false);
-
-
-        return view;
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        populateListView();
     }
+
+    private void populateListView() {
+        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
+                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+                "Linux", "OS/2" };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, values);
+        setListAdapter(adapter);
+    }
+
+
 
     @Override
     public void onStart() {
