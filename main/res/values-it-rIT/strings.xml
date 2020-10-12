@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ristodroid</string>
-    <string name="cash">Cassa</string>
-    <string name="client">cliente</string>
-    <string name="waiter">cameriere</string>
-    <string name="menu">menù</string>
-    <string name="allergeni">allergeni</string>
-    <string name="richiedi_conto">richiedi conto</string>
-    <string name="prova">Prova</string>
+
 </resources>

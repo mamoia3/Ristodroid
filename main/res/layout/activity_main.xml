@@ -1,50 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="controllers.MainActivity">
+    android:foregroundTint="#FFFFFF"
+    tools:context="controllers.MainActivity"
+    android:background="@color/colorSplashScreenBackground">
 
-    <Button
-        android:id="@+id/btn_client"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/client"
-        app:layout_constraintBottom_toTopOf="@+id/btnwaiter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnwaiter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="156dp"
-        android:layout_marginBottom="70dp"
-        android:text="@string/waiter"
-        app:layout_constraintBottom_toTopOf="@+id/btncash"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_client" />
-
-    <Button
-        android:id="@+id/btncash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginEnd="161dp"
-        android:layout_marginBottom="170dp"
-        android:text="@string/cash"
+        android:layout_marginBottom="130dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/logo"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnwaiter" />
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/open_sans_semibold"
+        android:letterSpacing="0.2"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+
+        android:textColor="@color/colorRedTitle"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

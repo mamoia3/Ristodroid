@@ -1,22 +1,8 @@
 <resources>
     <string name="app_name">Ristodroid</string>
-    <string name="cash">Cassa</string>
-    <string name="client">cliente</string>
-    <string name="waiter">cameriere</string>
-    <string name="menu">menù</string>
-    <string name="allergeni">allergeni</string>
-    <string name="richiedi_conto">richiedi conto</string>
-    <string name="prova">Prova</string>
+
+    <string name="logo" translatable="false">Logo</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="primi">primi</string>
-    <string name="secondi">secondi</string>
-    <string name="dessert">dessert</string>
-    <string name="pizze">pizze</string>
-    <string name="bevande">bevande</string>
-    <string name="digestivi">digestivi</string>
-    <string name="antipasti">antipasti</string>
-    <string name="ordine">ordine</string>
 
 </resources>
