@@ -1,4 +1,4 @@
-package com.example.ristodroid;
+package persistenza;
 
 import android.content.Context;
 import android.database.Cursor;
