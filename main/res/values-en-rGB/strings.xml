@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_title">Welcome!</string>
+    <string name="choose_action">What do you want to do?</string>
+    <string name="menu">Read menu</string>
+    <string name="bill">Request the bill</string>
+</resources>

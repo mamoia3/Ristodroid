@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ristodroid</string>
-
+    <string name="welcome_title">Benvenuto!</string>
+    <string name="choose_action">Cosa vuoi fare?</string>
+    <string name="menu">Consulta menù</string>
+    <string name="bill">Chiedi il conto</string>
 </resources>

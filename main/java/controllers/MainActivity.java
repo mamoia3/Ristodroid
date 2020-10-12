@@ -15,11 +15,11 @@ import com.example.ristodroid.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN = 5000;
+    private static int SPLASH_SCREEN = 3000;
 
-    Animation topAnim, bottomAnim;
-    ImageView logo;
-    TextView title;
+    private Animation topAnim, bottomAnim;
+    private ImageView logo;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
         bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
-        logo = findViewById(R.id.imageView);
-        title = findViewById(R.id.title);
+        logo = (ImageView) findViewById(R.id.logoSplashScreen);
+        title = (TextView) findViewById(R.id.titleSplashScreen);
 
         logo.setAnimation(bottomAnim);
         title.setAnimation(topAnim);

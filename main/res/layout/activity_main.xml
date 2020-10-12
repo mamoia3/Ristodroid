@@ -9,7 +9,7 @@
     android:background="@color/colorSplashScreenBackground">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logoSplashScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="130dp"
@@ -19,11 +19,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/titleSplashScreen"
         app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/titleSplashScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -36,7 +36,7 @@
 
         android:textColor="@color/colorRedTitle"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/logoSplashScreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
