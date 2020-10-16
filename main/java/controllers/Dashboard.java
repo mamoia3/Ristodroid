@@ -1,6 +1,7 @@
 package controllers;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -12,6 +13,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.ristodroid.R;
+
+import persistence.RistodroidDBSchema;
+import persistence.SqLiteDb;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -32,6 +36,9 @@ public class Dashboard extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        SQLiteDatabase db = new SqLiteDb(getApplicationContext()).getWritableDatabase();
+
 
     }
 

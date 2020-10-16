@@ -8,14 +8,14 @@ public class Variation {
     private String name;
     private double price;
     private List<CategoryVariation> categoryVariations;
-    private List<VariationOrder> variationOrders;
+    private List<VariationDishOrder> variationDishOrders;
 
-    public Variation(int id, String name, double price, List<CategoryVariation> categoryVariations, List<VariationOrder> variationOrders) {
+    public Variation(int id, String name, double price, List<CategoryVariation> categoryVariations, List<VariationDishOrder> variationDishOrders) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.categoryVariations = categoryVariations;
-        this.variationOrders = variationOrders;
+        this.variationDishOrders = variationDishOrders;
     }
 
     public int getId() {
@@ -34,8 +34,8 @@ public class Variation {
         return categoryVariations;
     }
 
-    public List<VariationOrder> getVariationOrders() {
-        return variationOrders;
+    public List<VariationDishOrder> getVariationDishOrders() {
+        return variationDishOrders;
     }
 
     @Override

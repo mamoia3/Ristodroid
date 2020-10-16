@@ -1,6 +1,5 @@
 package model;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,14 +8,14 @@ public class OrderDetail {
     private Order order;
     private Dish dish;
     private int quantity;
-    private List<VariationOrder> variationOrderList;
+    private List<VariationDishOrder> variationDishOrderList;
 
-    public OrderDetail(int id, Order order, Dish dish, int quantity, List<VariationOrder> variationOrderList) {
+    public OrderDetail(int id, Order order, Dish dish, int quantity, List<VariationDishOrder> variationDishOrderList) {
         this.id = id;
         this.order = order;
         this.dish = dish;
         this.quantity = quantity;
-        this.variationOrderList = variationOrderList;
+        this.variationDishOrderList = variationDishOrderList;
     }
 
     public int getId() {
@@ -35,8 +34,8 @@ public class OrderDetail {
         return quantity;
     }
 
-    public List<VariationOrder> getVariationOrderList() {
-        return variationOrderList;
+    public List<VariationDishOrder> getVariationDishOrderList() {
+        return variationDishOrderList;
     }
 
     @Override

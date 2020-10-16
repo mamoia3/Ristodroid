@@ -2,11 +2,11 @@ package model;
 
 import java.util.Objects;
 
-public class VariationOrder {
+public class VariationDishOrder {
     private Variation variation;
     private OrderDetail orderDetail;
 
-    public VariationOrder(Variation variation, OrderDetail orderDetail) {
+    public VariationDishOrder(Variation variation, OrderDetail orderDetail) {
         this.variation = variation;
         this.orderDetail = orderDetail;
     }
@@ -30,8 +30,8 @@ public class VariationOrder {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof VariationOrder)) return false;
-        VariationOrder that = (VariationOrder) o;
+        if (!(o instanceof VariationDishOrder)) return false;
+        VariationDishOrder that = (VariationDishOrder) o;
         return Objects.equals(variation, that.variation) &&
                 Objects.equals(orderDetail, that.orderDetail);
     }
