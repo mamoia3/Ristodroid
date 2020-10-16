@@ -11,4 +11,10 @@
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
+
+    <style name="buttonStyle" parent="Widget.AppCompat.Button">
+        <item name="backgroundTint">@color/button_bg</item>
+        <item name="android:textColor">@color/button_text</item>
+        <item name="android:radius">150dp</item>
+    </style>
 </resources>

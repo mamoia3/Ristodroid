@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ristodroid">
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -8,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="controllers.Bill"></activity>
+        <activity
+            android:name="controllers.Dashboard"
+            android:label="@string/title_activity_dashboard"></activity>
+        <activity android:name="controllers.Bill" />
         <activity android:name="controllers.MenuCategories" />
-        <activity android:name="controllers.Dashboard" />
-
         <activity
             android:name="controllers.MainActivity"
             android:theme="@style/SplashTheme">
@@ -21,6 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
+
 </manifest>

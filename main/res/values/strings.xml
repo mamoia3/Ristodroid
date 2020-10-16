@@ -4,9 +4,9 @@
     <string name="logo" translatable="false">Logo</string>
     <string name="welcome_title">Welcome!</string>
     <string name="choose_action">What do you want to do?</string>
-    <string name="menu">Read menu</string>
-    <string name="bill">Request the bill</string>
-    <string name="title_activity_menu_categories">MainActivity</string>
+    <string name="menu">Menu</string>
+    <string name="bill">Bill</string>
+    <string name="title_activity_dashboard">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
