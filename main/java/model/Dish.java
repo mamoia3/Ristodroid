@@ -7,7 +7,6 @@ import java.util.Objects;
 
 public class Dish {
 
-    private static final int CIFRE_DECIMALI = 2;
     private int id;
     private String name;
     private String description;
@@ -25,7 +24,7 @@ public class Dish {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.price = round(price, CIFRE_DECIMALI);
+        this.price = price;
         this.photo = photo;
         this.category = category;
         this.ingredientDishes = ingredientDishes;
@@ -34,9 +33,6 @@ public class Dish {
         this.availabilities = availabilities;
     }
 
-    public static double round(double d, int cifre_decimali) {
-        return Math.floor(d * Math.pow(10, cifre_decimali)) / Math.pow(10, cifre_decimali);
-    }
 
     public int getId() {
         return id;
