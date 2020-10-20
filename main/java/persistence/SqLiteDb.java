@@ -124,7 +124,7 @@ public class SqLiteDb extends SQLiteOpenHelper {
 
     private final static String QUERY_CREATETABLE_TABLE =
             "" + "CREATE TABLE " + RistodroidDBSchema.TableTable.NAME + " (" +
-                    RistodroidDBSchema.TableTable.Cols.ID + " integer PRIMARY KEY AUTOINCREMENT NOT NULL );";
+                    RistodroidDBSchema.TableTable.Cols.ID + " VARCHAR(4) PRIMARY KEY NOT NULL );";
 
     private final static String QUERY_CREATETABLE_VARIATION =
             "" + "CREATE TABLE " + RistodroidDBSchema.VariationTable.NAME + "(" +
