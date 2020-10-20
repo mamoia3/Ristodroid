@@ -12,6 +12,14 @@ import java.util.TreeMap;
 
 
 public class LoadJson {
+
+    /**
+     * creo un'istanza di SQLiteDatabase e chiamo i metodi di supporto per eseguire le query di insert
+     *
+     * @param tables
+     * @param context
+     * @throws JSONException
+     */
      public static void insertJsonIntoDb (TreeMap<String, JSONArray> tables, Context context) throws JSONException {
          SQLiteDatabase db = new SqLiteDb(context).getWritableDatabase();
          insertIntoAllergenicTable(tables, db);
@@ -28,6 +36,12 @@ public class LoadJson {
          insertIntoVariationTable(tables, db);
      }
 
+    /**
+     * Metodo per l'insert di un oggetto ContentValues che corrisponde ad un record di una tabella
+     * @param tables
+     * @param db
+     * @throws JSONException
+     */
     private static void insertIntoVariationTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
@@ -36,6 +50,14 @@ public class LoadJson {
             db.insert(RistodroidDBSchema.VariationTable.NAME, null, contentValues);
         }
     }
+
+    /**
+     * Metodo per la creazione di un oggetto ContentValues con i campi di un record
+     * @param tables
+     * @param count
+     * @return
+     * @throws JSONException
+     */
     private static ContentValues getContentVariationValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
         ContentValues contentValues = new ContentValues();
         JSONArray table = tables.get(RistodroidDBSchema.VariationTable.NAME);

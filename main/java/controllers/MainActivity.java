@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
 
     }
 
+    /**
+     * Procedura per il caricamento del
+     * @param url
+     */
     private void getJsonResponse(String url) {
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -70,6 +74,12 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
         Volley.newRequestQueue(this).add(jsonRequest);
     }
 
+    /**
+     * Ritorna una mappa chiave (nome tabella) valore (row della rispettiva tabella) del db
+     * @param db
+     * @return tables
+     * @throws JSONException
+     */
     private TreeMap<String, JSONArray> getDbTablesFromJson(JSONObject db) throws JSONException {
         TreeMap<String, JSONArray> tables = new TreeMap<>();
         JSONArray keys = db.names();
