@@ -162,7 +162,7 @@ public class SqLiteDb extends SQLiteOpenHelper {
     }
 
     private static String dropTable (String table_name) {
-        return "DROP IF TABLE EXISTS " + table_name;
+        return "DROP TABLE IF EXISTS " + table_name;
     }
 
     @Override

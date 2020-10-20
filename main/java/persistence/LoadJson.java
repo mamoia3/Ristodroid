@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.Objects;
 import java.util.TreeMap;
 
 
@@ -22,39 +23,41 @@ public class LoadJson {
      */
      public static void insertJsonIntoDb (TreeMap<String, JSONArray> tables, Context context) throws JSONException {
          SQLiteDatabase db = new SqLiteDb(context).getWritableDatabase();
+
          insertIntoAllergenicTable(tables, db);
+         insertIntoMenuTable(tables, db);
+         insertIntoIngredientTable(tables, db);
+         insertIntoTableTable(tables, db);
+         insertIntoCategoryTable(tables, db);
          insertIntoDishTable(tables, db);
          insertIntoAllergenicDishTable(tables, db);
-         insertIntoAvailabilityTable(tables, db);
-         insertIntoCategoryTable(tables, db);
-         insertIntoCategoryVariationTable(tables, db);
-         insertIntoIngredientTable(tables, db);
          insertIntoIngredientDishTable(tables, db);
-         insertIntoMenuTable(tables, db);
-         insertIntoSeatTable(tables, db);
-         insertIntoTableTable(tables, db);
+         insertIntoAvailabilityTable(tables, db);
          insertIntoVariationTable(tables, db);
+         insertIntoCategoryVariationTable(tables, db);
+         insertIntoSeatTable(tables, db);
+
      }
 
     /**
      * Metodo per l'insert di un oggetto ContentValues che corrisponde ad un record di una tabella
-     * @param tables
-     * @param db
+     * @param tables tabelle db
+     * @param db db
      * @throws JSONException
      */
     private static void insertIntoVariationTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.VariationTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.VariationTable.NAME)).length(); i++) {
             contentValues = getContentVariationValue(tables, i);
-            db.insert(RistodroidDBSchema.VariationTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.VariationTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
 
     /**
      * Metodo per la creazione di un oggetto ContentValues con i campi di un record
-     * @param tables
-     * @param count
+     * @param tables treemap del db del db
+     * @param count iesimo record della tabella
      * @return
      * @throws JSONException
      */
@@ -71,9 +74,9 @@ public class LoadJson {
     private static void insertIntoTableTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.TableTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.TableTable.NAME)).length(); i++) {
             contentValues = getContentTableValue(tables, i);
-            db.insert(RistodroidDBSchema.TableTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.TableTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
     private static ContentValues getContentTableValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
@@ -87,9 +90,9 @@ public class LoadJson {
     private static void insertIntoSeatTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.SeatTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.SeatTable.NAME)).length(); i++) {
             contentValues = getContentSeatValue(tables, i);
-            db.insert(RistodroidDBSchema.SeatTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.SeatTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
     private static ContentValues getContentSeatValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
@@ -105,9 +108,9 @@ public class LoadJson {
     private static void insertIntoMenuTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.MenuTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.MenuTable.NAME)).length(); i++) {
             contentValues = getContentMenuValue(tables, i);
-            db.insert(RistodroidDBSchema.MenuTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.MenuTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
     private static ContentValues getContentMenuValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
@@ -122,9 +125,9 @@ public class LoadJson {
     private static void insertIntoIngredientDishTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.IngredientDishTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.IngredientDishTable.NAME)).length(); i++) {
             contentValues = getContentIngredientDishValue(tables, i);
-            db.insert(RistodroidDBSchema.IngredientDishTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.IngredientDishTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
     private static ContentValues getContentIngredientDishValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
@@ -139,9 +142,9 @@ public class LoadJson {
     private static void insertIntoIngredientTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.IngredientTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.IngredientTable.NAME)).length(); i++) {
             contentValues = getContentIngredientValue(tables, i);
-            db.insert(RistodroidDBSchema.IngredientTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.IngredientTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
     private static ContentValues getContentIngredientValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
@@ -156,9 +159,9 @@ public class LoadJson {
     private static void insertIntoCategoryVariationTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.CategoryVariationTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.CategoryVariationTable.NAME)).length(); i++) {
             contentValues = getContentCategoryVariationValue(tables, i);
-            db.insert(RistodroidDBSchema.CategoryVariationTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.CategoryVariationTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
     private static ContentValues getContentCategoryVariationValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
@@ -173,9 +176,9 @@ public class LoadJson {
     private static void insertIntoCategoryTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.CategoryTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.CategoryTable.NAME)).length(); i++) {
             contentValues = getContentCategoryValue(tables, i);
-            db.insert(RistodroidDBSchema.CategoryTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.CategoryTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
     private static ContentValues getContentCategoryValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
@@ -190,9 +193,9 @@ public class LoadJson {
     private static void insertIntoAvailabilityTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.AvailabilityTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.AvailabilityTable.NAME)).length(); i++) {
             contentValues = getContentAvailabilityValue(tables, i);
-            db.insert(RistodroidDBSchema.AvailabilityTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.AvailabilityTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
     private static ContentValues getContentAvailabilityValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
@@ -209,9 +212,9 @@ public class LoadJson {
     private static void insertIntoAllergenicDishTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.AllergenicDishTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.AllergenicDishTable.NAME)).length(); i++) {
             contentValues = getContentAllergenicDishValue(tables, i);
-            db.insert(RistodroidDBSchema.AllergenicDishTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.AllergenicDishTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
     private static ContentValues getContentAllergenicDishValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
@@ -226,9 +229,9 @@ public class LoadJson {
     private static void insertIntoAllergenicTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
         ContentValues contentValues;
 
-        for(int i = 0; i<tables.get(RistodroidDBSchema.AllergenicTable.NAME).length(); i++) {
+        for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.AllergenicTable.NAME)).length(); i++) {
             contentValues = getContentAllergenicValue(tables, i);
-            db.insert(RistodroidDBSchema.AllergenicTable.NAME, null, contentValues);
+            db.insertWithOnConflict(RistodroidDBSchema.AllergenicTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         }
     }
     private static ContentValues getContentAllergenicValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {
@@ -243,9 +246,9 @@ public class LoadJson {
     private static void insertIntoDishTable(TreeMap<String, JSONArray> tables, SQLiteDatabase db) throws JSONException {
          ContentValues contentValues;
 
-         for(int i = 0; i<tables.get(RistodroidDBSchema.DishTable.NAME).length(); i++) {
+         for(int i = 0; i< Objects.requireNonNull(tables.get(RistodroidDBSchema.DishTable.NAME)).length(); i++) {
              contentValues = getContentDishValue(tables, i);
-             db.insert(RistodroidDBSchema.DishTable.NAME, null, contentValues);
+             db.insertWithOnConflict(RistodroidDBSchema.DishTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
          }
      }
     private static ContentValues getContentDishValue (TreeMap<String, JSONArray> tables, int count) throws JSONException {

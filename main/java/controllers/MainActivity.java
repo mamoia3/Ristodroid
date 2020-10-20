@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.TreeMap;
 
 import persistence.LoadJson;
+import persistence.SqLiteDb;
 
 public class MainActivity extends AppCompatActivity implements Iterable<String> {
 
@@ -66,8 +67,11 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("ErrorDB", "download fallito");
-                Toast toast= Toast.makeText(getApplicationContext(),"Sincronizzazione menu fallita",Toast. LENGTH_SHORT);
+                Toast toast= Toast.makeText(getApplicationContext(),"Sincronizzazione menu fallita," +
+                        " verrà visualizzato l'ultimo menu disponibile",Toast.LENGTH_LONG);
                 toast.show();
+                //se non riesco a scaricare i dati, recupero il db locale
+                SQLiteDatabase db = new SqLiteDb(getApplicationContext()).getWritableDatabase();
             }
         });
 
