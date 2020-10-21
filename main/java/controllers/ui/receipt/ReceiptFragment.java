@@ -16,20 +16,15 @@ import com.example.ristodroid.R;
 
 public class ReceiptFragment extends Fragment {
 
-    private ReceiptViewModel receiptViewModel;
+    TextView textView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        receiptViewModel =
-                new ViewModelProvider(this).get(ReceiptViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_receipt, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        receiptViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        TextView textView = root.findViewById(R.id.text_notifications);
+        textView.setText("This is Fragment Receipt");
+
         return root;
     }
 }
