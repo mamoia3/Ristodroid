@@ -1,4 +1,4 @@
-package controllers.ui.dashboard;
+package controllers.ui.receipt;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ristodroid.R;
 
-public class DashboardFragment extends Fragment {
+public class ReceiptFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private ReceiptViewModel receiptViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        receiptViewModel =
+                new ViewModelProvider(this).get(ReceiptViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_receipt, container, false);
+        final TextView textView = root.findViewById(R.id.text_notifications);
+        receiptViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

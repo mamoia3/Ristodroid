@@ -4,4 +4,7 @@
     <string name="choose_action">What do you want to do?</string>
     <string name="menu">Menu</string>
     <string name="bill">Bill</string>
+    <string name="title_menu">Menu</string>
+    <string name="title_summary">Summary</string>
+    <string name="title_receipt">Receipt</string>
 </resources>

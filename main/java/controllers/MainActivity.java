@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
     }
 
     /**
-     * Procedura per il caricamento del
-     * @param url
+     * Procedura per il caricamento del json nel db
+     * @param url indirizzo per la richiesta GET
      */
     private void getJsonResponse(String url) {
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -80,15 +80,17 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
 
     /**
      * Ritorna una mappa chiave (nome tabella) valore (row della rispettiva tabella) del db
-     * @param db
+     * @param db database
      * @return tables
-     * @throws JSONException
+     * @throws JSONException json exception
      */
     private TreeMap<String, JSONArray> getDbTablesFromJson(JSONObject db) throws JSONException {
         TreeMap<String, JSONArray> tables = new TreeMap<>();
         JSONArray keys = db.names();
         for(int i=0; i< db.length(); i++) {
-            tables.put(keys.getString(i) ,db.getJSONArray(keys.getString(i)));
+            if (keys != null) {
+                tables.put(keys.getString(i) ,db.getJSONArray(keys.getString(i)));
+            }
         }
         return tables;
     }

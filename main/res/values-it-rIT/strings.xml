@@ -4,4 +4,7 @@
     <string name="choose_action">Cosa vuoi fare?</string>
     <string name="menu">Menù</string>
     <string name="bill">Conto</string>
+    <string name="title_menu">Menù</string>
+    <string name="title_summary">Riepilogo</string>
+    <string name="title_receipt">Conto</string>
 </resources>

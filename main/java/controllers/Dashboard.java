@@ -1,6 +1,5 @@
 package controllers;
 
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -14,10 +13,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.ristodroid.R;
 
-import persistence.RistodroidDBSchema;
 import persistence.SqLiteDb;
 
+/**
+ * In questa classe ci occupiamo di scambiare i vari fragment
+ */
 public class Dashboard extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class Dashboard extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_menu, R.id.navigation_summary, R.id.navigation_receipt)
                 .build();
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
@@ -36,9 +38,6 @@ public class Dashboard extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-        SQLiteDatabase db = new SqLiteDb(getApplicationContext()).getWritableDatabase();
-
 
     }
 

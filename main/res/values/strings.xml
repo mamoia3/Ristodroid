@@ -7,9 +7,9 @@
     <string name="menu">Menu</string>
     <string name="bill">Bill</string>
     <string name="title_activity_dashboard">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_menu">Menu</string>
+    <string name="title_summary">Summary</string>
+    <string name="title_receipt">Receipt</string>
 
 
 </resources>
