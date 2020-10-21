@@ -22,6 +22,7 @@ public class MenuFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_menu, container, false);
         textView = root.findViewById(R.id.text_home);
         textView.setText("This is fragment Menu");
+
         return root;
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 
+import java.sql.Blob;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,13 +9,15 @@ public class Category {
 
     private int id;
     private String name;
+    private Blob photo;
     private List<Dish> dishes;
     private List<CategoryVariation> categoryVariations;
 
 
-    public Category(int id, String name, List<Dish> dishes, List<CategoryVariation> categoryVariations) {
+    public Category(int id, String name, Blob photo, List<Dish> dishes, List<CategoryVariation> categoryVariations) {
         this.id = id;
         this.name = name;
+        this.photo = photo;
         this.dishes = dishes;
         this.categoryVariations = categoryVariations;
     }
@@ -25,6 +28,10 @@ public class Category {
 
     public String getName() {
         return name;
+    }
+
+    public Blob getPhoto() {
+        return photo;
     }
 
     public List<Dish> getDishes() {

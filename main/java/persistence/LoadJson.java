@@ -186,6 +186,7 @@ public class LoadJson {
         JSONArray table = tables.get(RistodroidDBSchema.CategoryTable.NAME);
         contentValues.put(RistodroidDBSchema.CategoryTable.Cols.ID, table.getJSONObject(count).getInt(RistodroidDBSchema.CategoryTable.Cols.ID));
         contentValues.put(RistodroidDBSchema.CategoryTable.Cols.NAME, table.getJSONObject(count).getString(RistodroidDBSchema.CategoryTable.Cols.NAME));
+        contentValues.put(RistodroidDBSchema.CategoryTable.Cols.PHOTO, table.getJSONObject(count).getString(RistodroidDBSchema.CategoryTable.Cols.PHOTO));
 
         return contentValues;
     }

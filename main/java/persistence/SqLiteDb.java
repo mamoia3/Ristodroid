@@ -48,7 +48,8 @@ public class SqLiteDb extends SQLiteOpenHelper {
     private final static String QUERY_CREATETABLE_CATEGORY =
             "" + "CREATE TABLE " + RistodroidDBSchema.CategoryTable.NAME + "(" +
                     RistodroidDBSchema.CategoryTable.Cols.ID + " integer PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    RistodroidDBSchema.CategoryTable.Cols.NAME + " VARCHAR(255) NOT NULL );";
+                    RistodroidDBSchema.CategoryTable.Cols.NAME + " VARCHAR(255) NOT NULL, " +
+                    RistodroidDBSchema.CategoryTable.Cols.PHOTO + " LONGBLOB NOT NULL );";
 
     private final static String QUERY_CREATETABLE_CATEGORYVARIATION =
             "" + "CREATE TABLE " + RistodroidDBSchema.CategoryVariationTable.NAME + "(" +
