@@ -6,10 +6,11 @@
     <string name="choose_action">What do you want to do?</string>
     <string name="menu">Menu</string>
     <string name="bill">Bill</string>
-    <string name="title_activity_dashboard">MainActivity</string>
+    <string name="title_activity_dashboard" translatable="false">MainActivity</string>
     <string name="title_menu">Menu</string>
     <string name="title_summary">Summary</string>
     <string name="title_receipt">Receipt</string>
+    <string name="row_category">Category</string>
 
 
 </resources>

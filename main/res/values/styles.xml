@@ -12,9 +12,12 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
-    <style name="buttonStyle" parent="Widget.AppCompat.Button">
-        <item name="backgroundTint">@color/button_bg</item>
-        <item name="android:textColor">@color/button_text</item>
-        <item name="android:radius">150dp</item>
+    <style name="categoriesCardStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:font">@font/open_sans_semibold</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="color">@color/primary_text</item>
     </style>
+
 </resources>
