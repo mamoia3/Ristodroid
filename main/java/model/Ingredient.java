@@ -1,19 +1,15 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Ingredient {
     private int id;
     private String name;
-    private List<IngredientDish> ingredientDishes;
 
 
-    public Ingredient(int id, String name, List<IngredientDish> ingredientDishes) {
+    public Ingredient(int id, String name) {
         this.id = id;
         this.name = name;
-        this.ingredientDishes = ingredientDishes;
     }
 
     public int getId() {
@@ -22,10 +18,6 @@ public class Ingredient {
 
     public String getName() {
         return name;
-    }
-
-    public List<IngredientDish> getIngredientDishes() {
-        return ingredientDishes;
     }
 
     @Override

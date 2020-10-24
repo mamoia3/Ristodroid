@@ -13,12 +13,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="controllers.Dashboard"
-            android:label="@string/title_activity_dashboard"></activity>
-        <activity android:name="controllers.Bill" />
-        <activity android:name="controllers.MenuCategories" />
+            android:label="@string/title_activity_dashboard"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name="controllers.MainActivity"
             android:theme="@style/SplashTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

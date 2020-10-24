@@ -1,17 +1,14 @@
 package model;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Allergenic {
     private int id;
     private String name;
-    private List<AllergenicDish> allergenicDishes;
 
-    public Allergenic(int id, String name, List<AllergenicDish> allergenicDishes) {
+    public Allergenic(int id, String name) {
         this.id = id;
         this.name = name;
-        this.allergenicDishes = allergenicDishes;
     }
 
     public int getId() {
@@ -20,10 +17,6 @@ public class Allergenic {
 
     public String getName() {
         return name;
-    }
-
-    public List<AllergenicDish> getAllergenicDishes() {
-        return allergenicDishes;
     }
 
     @Override

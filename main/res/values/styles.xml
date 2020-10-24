@@ -19,5 +19,18 @@
         <item name="android:letterSpacing">0.1</item>
         <item name="color">@color/primary_text</item>
     </style>
+    <style name="price" parent="Widget.AppCompat.TextView">
+        <item name="android:font">@font/open_sans_semibold</item>
+        <item name="android:textSize">16dp</item>
+        <item name="color">@color/primary_text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="dishTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:font">@font/open_sans_semibold</item>
+        <item name="android:textSize">16dp</item>
+        <item name="color">@color/primary_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
 
 </resources>

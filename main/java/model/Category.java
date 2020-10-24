@@ -19,16 +19,14 @@ public class Category {
     private int id;
     private String name;
     private byte[] photo;
-    private List<Dish> dishes;
-    private List<CategoryVariation> categoryVariations;
 
 
-    public Category(int id, String name, byte[] photo, List<Dish> dishes, List<CategoryVariation> categoryVariations) {
+
+    public Category(int id, String name, byte[] photo) {
         this.id = id;
         this.name = name;
         this.photo = photo;
-        this.dishes = dishes;
-        this.categoryVariations = categoryVariations;
+
     }
 
     public int getId() {
@@ -43,13 +41,6 @@ public class Category {
         return photo;
     }
 
-    public List<Dish> getDishes() {
-        return dishes;
-    }
-
-    public List<CategoryVariation> getCategoryVariations() {
-        return categoryVariations;
-    }
 
     @Override
     public String toString() {
@@ -83,7 +74,7 @@ public class Category {
             int id = cursor.getInt(cursor.getColumnIndex(RistodroidDBSchema.CategoryTable.Cols.ID));
             String name = cursor.getString(cursor.getColumnIndex(RistodroidDBSchema.CategoryTable.Cols.NAME));
             byte[] photo = cursor.getBlob(cursor.getColumnIndex(RistodroidDBSchema.CategoryTable.Cols.PHOTO));
-            categories.add(new Category(id, name, photo, null, null));
+            categories.add(new Category(id, name, photo));
         }
 
         cursor.close();
