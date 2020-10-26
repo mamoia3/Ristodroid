@@ -9,4 +9,5 @@
     <string name="title_receipt">Conto</string>
     <string name="row_category">Categoria</string>
     <string name="title_dishes">Piatti</string>
+    <string name="title_details_dish">Dettagli Piatto</string>
 </resources>

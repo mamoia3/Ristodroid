@@ -1,6 +1,10 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import controllers.Utility;
 
 public class Ingredient {
     private int id;
@@ -39,5 +43,13 @@ public class Ingredient {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public static String getIngredientsToString (List<Ingredient> ingredients) {
+        ArrayList<String> list = new ArrayList<>();
+        for(int i=0; i<ingredients.size(); i++) {
+            list.add(ingredients.get(i).getName());
+        }
+        return Utility.listToStringWithDelimiter(list, ", ");
     }
 }

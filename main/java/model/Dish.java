@@ -3,6 +3,8 @@ package model;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +16,7 @@ import controllers.Utility;
 import persistence.RistodroidDBSchema;
 import persistence.SqLiteDb;
 
-public class Dish {
+public class Dish implements Parcelable {
 
     private int id;
     private String name;
@@ -42,6 +44,29 @@ public class Dish {
         this.availabilities = availabilities;
     }
 
+
+    protected Dish(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        price = in.readDouble();
+        photo = in.createByteArray();
+        category = (Category)in.readParcelable(Category.class.getClassLoader());
+        ingredientDishes = in.readArrayList(Ingredient.class.getClassLoader());
+        allergenicDishes = in.readArrayList(Allergenic.class.getClassLoader());
+    }
+
+    public static final Creator<Dish> CREATOR = new Creator<Dish>() {
+        @Override
+        public Dish createFromParcel(Parcel in) {
+            return new Dish(in);
+        }
+
+        @Override
+        public Dish[] newArray(int size) {
+            return new Dish[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -85,6 +110,14 @@ public class Dish {
 
     public static ArrayList<Dish> getDishes(Context context, int idCategoryRequest) {
 
+        final String DISH_ID ="dishid";
+        final String DISH_NAME="dishname";
+        final String DISH_DESCR ="dishdescr";
+        final String DISH_PRICE ="dishprice";
+        final String DISH_PHOTO ="dishphoto";
+        final String CATEGORY_ID="categoryid";
+        final String CATEGORY_NAME="categoryName";
+
         ArrayList<Dish> dishes = new ArrayList<>();
 
         String currentDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now());
@@ -92,13 +125,13 @@ public class Dish {
         SQLiteDatabase db = new SqLiteDb(context).getReadableDatabase();
 
         String queryDishAvailabilityTable = "SELECT "
-                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.ID + ","
-                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.NAME + " AS dishname,"
-                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.DESCRIPTION + ","
-                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.PRICE + ","
-                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.PHOTO + ","
-                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.CATEGORY + ","
-                + RistodroidDBSchema.CategoryTable.NAME + "." + RistodroidDBSchema.CategoryTable.Cols.NAME
+                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.ID + " AS " + DISH_ID + ","
+                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.NAME + " AS " + DISH_NAME +","
+                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.DESCRIPTION + " AS " + DISH_DESCR +","
+                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.PRICE + " AS " + DISH_PRICE +","
+                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.PHOTO + " AS " + DISH_PHOTO +","
+                + RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.CATEGORY + " AS " + CATEGORY_ID + ","
+                + RistodroidDBSchema.CategoryTable.NAME + "." + RistodroidDBSchema.CategoryTable.Cols.NAME +" AS " + CATEGORY_NAME
 
                 + " FROM " + RistodroidDBSchema.DishTable.NAME + " INNER JOIN "
                 + RistodroidDBSchema.CategoryTable.NAME + " ON "
@@ -133,13 +166,13 @@ public class Dish {
 
         while (dishesCursor.moveToNext()) {
 
-            int id = dishesCursor.getInt(dishesCursor.getColumnIndex(RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.ID));
-            String name = dishesCursor.getString(dishesCursor.getColumnIndex("dishname"));
-            byte[] photo = dishesCursor.getBlob(dishesCursor.getColumnIndex(RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.PHOTO));
-            double price = dishesCursor.getDouble(dishesCursor.getColumnIndex(RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.PRICE));
-            String description = dishesCursor.getString(dishesCursor.getColumnIndex(RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.DESCRIPTION));
-            int idCategory = dishesCursor.getInt(dishesCursor.getColumnIndex(RistodroidDBSchema.DishTable.NAME + "." + RistodroidDBSchema.DishTable.Cols.CATEGORY));
-            String categoryName = dishesCursor.getString(dishesCursor.getColumnIndex(RistodroidDBSchema.CategoryTable.NAME + "." + RistodroidDBSchema.CategoryTable.Cols.NAME));
+            int id = dishesCursor.getInt(dishesCursor.getColumnIndex(DISH_ID));
+            String name = dishesCursor.getString(dishesCursor.getColumnIndex(DISH_NAME));
+            byte[] photo = dishesCursor.getBlob(dishesCursor.getColumnIndex(DISH_PHOTO));
+            double price = dishesCursor.getDouble(dishesCursor.getColumnIndex(DISH_PRICE));
+            String description = dishesCursor.getString(dishesCursor.getColumnIndex(DISH_DESCR));
+            int idCategory = dishesCursor.getInt(dishesCursor.getColumnIndex(CATEGORY_ID));
+            String categoryName = dishesCursor.getString(dishesCursor.getColumnIndex(CATEGORY_NAME));
 
             Category myCategory = new Category(idCategory, categoryName, null);
             ArrayList<Ingredient> myIngredientDish = getIngredients(ingredientCursor, id);
@@ -169,6 +202,7 @@ public class Dish {
                 myIngredientDish.add(myNewIngredient);
             }
         }
+
         ingredientCursor.moveToFirst();
         return myIngredientDish;
     }
@@ -189,21 +223,7 @@ public class Dish {
         return myAllergenicDish;
     }
 
-    public String getIngredientsToString (List<Ingredient> ingredients) {
-        ArrayList<String> list = new ArrayList<>();
-        for(int i=0; i<ingredients.size(); i++) {
-            list.add(ingredients.get(i).getName());
-        }
-        return Utility.listToStringWithDelimiter(list, ", ");
-    }
 
-    public String getAllergenicsToString (List<Allergenic> allergenics) {
-        ArrayList<String> list = new ArrayList<>();
-        for(int i=0; i<allergenics.size(); i++) {
-            list.add(allergenics.get(i).getName());
-        }
-        return Utility.listToStringWithDelimiter(allergenics, ", ");
-    }
     @Override
     public String toString() {
         return "Dish{" +
@@ -226,5 +246,22 @@ public class Dish {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeDouble(price);
+        dest.writeByteArray(photo);
+        dest.writeValue(category);
+        dest.writeList(ingredientDishes);
+        dest.writeList(allergenicDishes);
     }
 }

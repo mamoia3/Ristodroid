@@ -34,7 +34,18 @@
         android:id="@+id/dishesFragment"
         android:name="controllers.ui.menu.DishesFragment"
         android:label="fragment_dishes"
-        tools:layout="@layout/fragment_dishes" />
+        tools:layout="@layout/fragment_dishes" >
+        <action
+            android:id="@+id/action_dishesFragment_to_navigation_dish_details"
+            app:destination="@id/navigation_dish_details"
+            app:popUpTo="@id/dishesFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/navigation_dish_details"
+        android:name="controllers.ui.menu.DishDetailsFragment"
+        android:label="@string/title_details_dish"
+        tools:layout="@layout/fragment_dish_details" />
 
 </navigation>

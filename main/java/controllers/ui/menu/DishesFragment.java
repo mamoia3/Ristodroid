@@ -45,7 +45,6 @@ public class DishesFragment extends Fragment {
                     "Non sono presenti delle portate per questa categoria!", Toast.LENGTH_LONG).show();
         }
 
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         dishesRecyclerView.setLayoutManager(linearLayoutManager);
         dishesRecyclerView.setAdapter(new DishRecyclerViewAdapter(dishes, getContext()));

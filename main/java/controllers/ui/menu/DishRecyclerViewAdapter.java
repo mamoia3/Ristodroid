@@ -50,16 +50,15 @@ public class DishRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         String euro = Currency.getInstance(Locale.GERMANY).getSymbol() + " ";
         final Dish dish = dishes.get(position);
         ((DishRecyclerViewAdapter.ViewHolder) holder).dishTitle.setText(dish.getName());
-        ((DishRecyclerViewAdapter.ViewHolder) holder).dishIngredient.setText(dish.getIngredientsToString(dish.getIngredientDishes()));
+        ((DishRecyclerViewAdapter.ViewHolder) holder).dishIngredient.setText(Ingredient.getIngredientsToString(dish.getIngredientDishes()));
         ((DishRecyclerViewAdapter.ViewHolder) holder).dishPrice.setText(euro + Utility.priceToString(dish.getPrice()));
         ((DishRecyclerViewAdapter.ViewHolder) holder).dishImage.setImageBitmap(Utility.byteToBitmap(dish.getPhoto()));
         ((DishRecyclerViewAdapter.ViewHolder) holder).dishesLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", dish.getId());
+
                 Navigation.findNavController(v)
-                        .navigate(R.id.action_navigation_menu_to_dishesFragment, bundle);
+                        .navigate(R.id.action_dishesFragment_to_navigation_dish_details);
             }
         });
 
