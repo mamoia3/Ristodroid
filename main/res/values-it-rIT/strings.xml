@@ -11,10 +11,12 @@
     <string name="title_dishes">Piatti</string>
     <string name="title_details_dish">Dettagli Piatto</string>
     <string name="button_add_dish">Aggiungi</string>
+    <string name="confirm">Conferma</string>
+    <string name="variations">Variazioni</string>
 
     <!--
     SEZIONE DEDICATA ALLA DEFINIZIONE DEI PLURALI
--->
+    -->
     <plurals name="numberOfIngredients">
         <item quantity="one">Ingrediente</item>
         <item quantity="other">Ingredienti</item>

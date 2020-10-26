@@ -13,12 +13,11 @@
     <string name="row_category">Category</string>
     <string name="title_dishes">Dishes</string>
     <string name="euro_symbol" translatable="false">\u20ac </string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="title_details_dish">Dish Details</string>
     <string name="button_add_dish">Add</string>
 
-
-
+    <string name="confirm">Confirm</string>
+    <string name="variations">Variations</string>
 
     <!--
         SEZIONE DEDICATA ALLA DEFINIZIONE DEI PLURALI

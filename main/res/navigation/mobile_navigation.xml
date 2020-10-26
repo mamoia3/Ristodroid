@@ -46,6 +46,16 @@
         android:id="@+id/navigation_dish_details"
         android:name="controllers.ui.menu.DishDetailsFragment"
         android:label="@string/title_details_dish"
-        tools:layout="@layout/fragment_dish_details" />
+        tools:layout="@layout/fragment_dish_details" >
+        <action
+            android:id="@+id/action_navigation_dish_details_to_navigation_variation"
+            app:destination="@id/navigation_variation" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_variation"
+        android:name="controllers.ui.menu.VariationFragment"
+        android:label="@string/variations"
+        tools:layout="@layout/fragment_variation" />
 
 </navigation>

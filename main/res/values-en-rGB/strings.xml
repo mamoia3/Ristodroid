@@ -11,6 +11,8 @@
     <string name="title_dishes">Dishes</string>
     <string name="title_details_dish">Dish Details</string>
     <string name="button_add_dish">Add</string>
+    <string name="confirm">Confirm</string>
+    <string name="variations">Variations</string>
 
 
     <!--
@@ -25,4 +27,5 @@
         <item quantity="one">Allergenic</item>
         <item quantity="other">Allergenics</item>
     </plurals>
+
 </resources>
