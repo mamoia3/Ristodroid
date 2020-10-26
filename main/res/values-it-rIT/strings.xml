@@ -10,4 +10,18 @@
     <string name="row_category">Categoria</string>
     <string name="title_dishes">Piatti</string>
     <string name="title_details_dish">Dettagli Piatto</string>
+    <string name="button_add_dish">Aggiungi</string>
+
+    <!--
+    SEZIONE DEDICATA ALLA DEFINIZIONE DEI PLURALI
+-->
+    <plurals name="numberOfIngredients">
+        <item quantity="one">Ingrediente</item>
+        <item quantity="other">Ingredienti</item>
+    </plurals>
+
+    <plurals name="numberOfAllergenic">
+        <item quantity="one">Allergene</item>
+        <item quantity="other">Allergeni</item>
+    </plurals>
 </resources>

@@ -50,8 +50,6 @@ public class DishesFragment extends Fragment {
         dishesRecyclerView.setAdapter(new DishRecyclerViewAdapter(dishes, getContext()));
         dishesRecyclerView.setHasFixedSize(true); //cardview hanno tutte le stesse dimensioni
 
-
-
         return root;
     }
 

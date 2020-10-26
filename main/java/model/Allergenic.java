@@ -50,6 +50,6 @@ public class Allergenic {
         for(int i=0; i<allergenics.size(); i++) {
             list.add(allergenics.get(i).getName());
         }
-        return Utility.listToStringWithDelimiter(allergenics, ", ");
+        return Utility.listToStringWithDelimiter(list, ", ");
     }
 }

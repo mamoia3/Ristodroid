@@ -56,9 +56,11 @@ public class DishRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         ((DishRecyclerViewAdapter.ViewHolder) holder).dishesLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Bundle bundle = new Bundle();
+                final String key_bundle = "KEY_DISH_BUNDLE";
+                bundle.putParcelable(key_bundle,dish);
                 Navigation.findNavController(v)
-                        .navigate(R.id.action_dishesFragment_to_navigation_dish_details);
+                        .navigate(R.id.action_dishesFragment_to_navigation_dish_details,bundle);
             }
         });
 
