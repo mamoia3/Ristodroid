@@ -10,4 +10,6 @@
     <string name="row_category">Category</string>
     <string name="title_dishes">Dishes</string>
     <string name="title_details_dish">Dish Details</string>
+    <string name="confirm">Confirm</string>
+    <string name="variations">Variations</string>
 </resources>
