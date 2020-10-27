@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ristodroid.R;
 
+import controllers.Dashboard;
 import controllers.MainActivity;
 
 public class SummaryFragment extends Fragment {

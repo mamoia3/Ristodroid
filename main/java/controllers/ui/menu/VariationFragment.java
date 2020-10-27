@@ -12,16 +12,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ristodroid.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import controllers.Dashboard;
 import controllers.MainActivity;
 import model.Dish;
 import model.OrderDetail;
 import model.Variation;
 
 public class VariationFragment extends Fragment {
+    private BottomNavigationView navMenu;
     private TextView minusText;
     private TextView plusText;
     private RecyclerView minusRecyclerView;
@@ -57,6 +60,10 @@ public class VariationFragment extends Fragment {
         minusText = root.findViewById(R.id.minusText);
         plusText = root.findViewById(R.id.plusText);
 
+        View dashboardView = getActivity().findViewById(R.id.dashboardView);
+        navMenu= dashboardView.findViewById(R.id.nav_view);
+
+
         LinearLayoutManager minusLinearLayoutManager = new LinearLayoutManager(getContext());
         minusRecyclerView = root.findViewById(R.id._minusvariation_recycler_view);
         minusVariations = Variation.getVariations(getContext(), dish.getCategory().getId(), dish.getIngredientDishes(), Variation.MINUS_VARIATION);
@@ -90,12 +97,19 @@ public class VariationFragment extends Fragment {
             orderDetail.setVariationMinusList(minusAdapter.getVariationsMinusOrder());
             orderDetail.setVariationPlusList(plusAdapter.getVariationsPlusOrder());
             MainActivity.getOrder().addOrderDetail(orderDetail);
-
+            setSummaryBadge(navMenu);
             Navigation.findNavController(getView())
                     .navigate(R.id.action_navigation_variation_to_navigation_menu);
         });
 
         return root;
+    }
+
+    protected void setSummaryBadge(BottomNavigationView navMenu) {
+        boolean orderNotNull = MainActivity.getOrder()!=null && MainActivity.getOrder().getOrderDetails().size()>0;
+        if(orderNotNull) {
+            navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(MainActivity.getOrder().getOrderDetails().size());
+        }
     }
 
 
