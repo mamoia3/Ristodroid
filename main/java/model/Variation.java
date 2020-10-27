@@ -14,6 +14,8 @@ import persistence.RistodroidDBSchema;
 import persistence.SqLiteDb;
 
 public class Variation {
+    public final static int MINUS_VARIATION = 1;
+    public final static int PLUS_VARIATION = 2;
     private int id;
     private String name;
     private double price;
@@ -28,7 +30,7 @@ public class Variation {
         this.variationDishOrders = variationDishOrders;
     }
 
-    public static ArrayList<Variation> getVariations(Context context, int category) {
+    public static ArrayList<Variation> getVariations(Context context, int category, List<Ingredient> ingredientList, int variation_type) {
 
         ArrayList<Variation> variations = new ArrayList<>();
 
@@ -40,15 +42,26 @@ public class Variation {
                 + RistodroidDBSchema.VariationTable.Cols.ID
                 + " WHERE " + RistodroidDBSchema.CategoryVariationTable.Cols.CATEGORY + "=" + category;
 
+        ArrayList<String> list = new ArrayList<>();
 
+        for(int i=0; i < ingredientList.size(); i++) {
+            list.add(ingredientList.get(i).getName());
+        }
+        
         Cursor variationsCursor = db.rawQuery(queryVariationTable, null);
 
         while (variationsCursor.moveToNext()) {
+
             int id = variationsCursor.getInt(variationsCursor.getColumnIndex(RistodroidDBSchema.VariationTable.Cols.ID));
             String name = variationsCursor.getString(variationsCursor.getColumnIndex(RistodroidDBSchema.VariationTable.Cols.NAME));
             double price = variationsCursor.getDouble(variationsCursor.getColumnIndex(RistodroidDBSchema.VariationTable.Cols.PRICE));
 
-            variations.add(new Variation(id, name, price, null, null));
+            if(list.contains(name) && variation_type == MINUS_VARIATION) {
+                variations.add(new Variation(id, name, price, null, null));
+            }
+            if(!list.contains(name) && variation_type == PLUS_VARIATION) {
+                variations.add(new Variation(id, name, price, null, null));
+            }
         }
 
         variationsCursor.close();

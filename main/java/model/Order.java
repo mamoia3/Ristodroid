@@ -1,35 +1,61 @@
 package model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import exception.NegativeSeatException;
 
-public class Order {
+public class Order implements Parcelable {
+    private static int COUNT=0;
     private int id;
-    private Timestamp time;
+    private String time;
     private Table table;
     private Seat seat;
     private int seatNumber;
     private List<OrderDetail> orderDetails;
 
-    public Order(int id, Timestamp time, Table table, Seat seat, int seatNumber, List<OrderDetail> orderDetails) throws NegativeSeatException {
-        this.id = id;
-        this.time = time;
+    public Order(Table table, Seat seat, int seatNumber) {
+        this.id = ++COUNT;
+        this.time = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
         this.table = table;
         this.seat = seat;
-        if(seatNumber <= 0) {
-            this.seatNumber = seatNumber;
-        } else throw new NegativeSeatException("Inserire un numero di coperti valido!");
-        this.orderDetails = orderDetails;
+        this.seatNumber = seatNumber;
+        this.orderDetails = new ArrayList<>();
     }
+
+    protected Order(Parcel in) {
+        id = in.readInt();
+        time = in.readString();
+        table = in.readParcelable(Table.class.getClassLoader());
+        seat = in.readParcelable(Seat.class.getClassLoader());
+        seatNumber = in.readInt();
+        orderDetails = in.readArrayList(OrderDetail.class.getClassLoader());
+    }
+
+    public static final Creator<Order> CREATOR = new Creator<Order>() {
+        @Override
+        public Order createFromParcel(Parcel in) {
+            return new Order(in);
+        }
+
+        @Override
+        public Order[] newArray(int size) {
+            return new Order[size];
+        }
+    };
 
     public int getId() {
         return id;
     }
 
-    public Timestamp getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -45,13 +71,20 @@ public class Order {
         return seatNumber;
     }
 
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void addOrderDetail (OrderDetail o) {
+        orderDetails.add(o);
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", time=" + time +
                 ", table=" + table +
-                ", orderDetails=" + orderDetails +
                 '}';
     }
 
@@ -66,5 +99,20 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(time);
+        dest.writeValue(table);
+        dest.writeValue(seat);
+        dest.writeInt(seatNumber);
+        dest.writeList(orderDetails);
     }
 }

@@ -18,6 +18,9 @@
 
     <string name="confirm">Confirm</string>
     <string name="variations">Variations</string>
+    <string name="minusText">Remove ingredients</string>
+    <string name="plusText">Add ingredients</string>
+    <string name="emptySummary">Empty summary</string>
 
     <!--
         SEZIONE DEDICATA ALLA DEFINIZIONE DEI PLURALI

@@ -49,13 +49,19 @@
         tools:layout="@layout/fragment_dish_details" >
         <action
             android:id="@+id/action_navigation_dish_details_to_navigation_variation"
-            app:destination="@id/navigation_variation" />
+            app:destination="@id/navigation_variation"
+            app:popUpTo="@id/navigation_dish_details"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_variation"
         android:name="controllers.ui.menu.VariationFragment"
         android:label="@string/variations"
-        tools:layout="@layout/fragment_variation" />
+        tools:layout="@layout/fragment_variation" >
+        <action
+            android:id="@+id/action_navigation_variation_to_navigation_menu"
+            app:destination="@id/navigation_menu" />
+    </fragment>
 
 </navigation>

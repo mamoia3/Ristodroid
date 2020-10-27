@@ -1,21 +1,34 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class OrderDetail {
+    private static int COUNT = 0;
     private int id;
     private Order order;
     private Dish dish;
     private int quantity;
-    private List<VariationDishOrder> variationDishOrderList;
+    private List<Variation> variationPlusList;
+    private List<Variation> variationMinusList;
 
-    public OrderDetail(int id, Order order, Dish dish, int quantity, List<VariationDishOrder> variationDishOrderList) {
-        this.id = id;
+
+    public OrderDetail(Order order, Dish dish, int quantity) {
+        this.id = ++COUNT;
         this.order = order;
         this.dish = dish;
         this.quantity = quantity;
-        this.variationDishOrderList = variationDishOrderList;
+        this.variationPlusList = new ArrayList<>();
+        this.variationMinusList = new ArrayList<>();
+    }
+
+    public void setVariationPlusList(List<Variation> variationPlusList) {
+        this.variationPlusList = variationPlusList;
+    }
+
+    public void setVariationMinusList(List<Variation> variationMinusList) {
+        this.variationMinusList = variationMinusList;
     }
 
     public int getId() {
@@ -34,9 +47,14 @@ public class OrderDetail {
         return quantity;
     }
 
-    public List<VariationDishOrder> getVariationDishOrderList() {
-        return variationDishOrderList;
+    public List<Variation> getVariationPlusList() {
+        return variationPlusList;
     }
+
+    public List<Variation> getVariationMinusList() {
+        return variationMinusList;
+    }
+
 
     @Override
     public String toString() {

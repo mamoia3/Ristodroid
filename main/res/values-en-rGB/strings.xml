@@ -27,5 +27,8 @@
         <item quantity="one">Allergenic</item>
         <item quantity="other">Allergenics</item>
     </plurals>
+    <string name="minusText">Remove ingredients</string>
+    <string name="plusText">Add ingredients</string>
+    <string name="emptySummary">Empty summary</string>
 
 </resources>

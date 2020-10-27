@@ -1,18 +1,17 @@
 package controllers.ui.menu;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ristodroid.R;
@@ -21,23 +20,35 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
+import controllers.MainActivity;
 import controllers.Utility;
-import model.Dish;
-import model.Ingredient;
 import model.Variation;
 
 public class VariationRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<Variation> variations;
     private final Context context;
+    private final List<Variation> variationsPlusOrder;
+    private final List<Variation> variationsMinusOrder;
+    private final int type;
 
 
-    public VariationRecyclerViewAdapter(List<Variation> variations, Context context) {
+
+    public VariationRecyclerViewAdapter(List<Variation> variations, Context context, int type) {
         this.variations = variations;
         this.context = context;
+        this.variationsPlusOrder = new ArrayList<>();
+        this.variationsMinusOrder = new ArrayList<>();
+        this.type = type;
     }
 
+    public List<Variation> getVariationsPlusOrder() {
+        return variationsPlusOrder;
+    }
+
+    public List<Variation> getVariationsMinusOrder() {
+        return variationsMinusOrder;
+    }
 
     //facciamo l'inflate (gonfiaggio) lo riportiamo sul ViewHolder -> grazie al quale andrà a richiamare i vari componenti
     @NonNull
@@ -47,31 +58,48 @@ public class VariationRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return new VariationRecyclerViewAdapter.ViewHolder(v);
     }
 
+
     //imposta gli oggetti presi dalla lista popolata da classi "category"
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
-        String euro = Currency.getInstance(Locale.GERMANY).getSymbol() + " ";
+
+        final int MINUS_COLOR = ContextCompat.getColor(context, R.color.minus_button);
+        final int PLUS_COLOR = ContextCompat.getColor(context, R.color.plus_button);
+        final int DEFAULT_TEXT_COLOR = ContextCompat.getColor(context, R.color.secondary_text);
+
+        final String euro = Currency.getInstance(Locale.GERMANY).getSymbol() + " ";
+
         final Variation variation = variations.get(position);
         ((VariationRecyclerViewAdapter.ViewHolder) holder).variationName.setText(variation.getName());
         ((VariationRecyclerViewAdapter.ViewHolder) holder).variationPrice.setText(euro + Utility.priceToString(variation.getPrice()));
-        ((VariationRecyclerViewAdapter.ViewHolder) holder).plusButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                ((VariationRecyclerViewAdapter.ViewHolder) holder).variationPrice.setTextColor(Color.GREEN);
-            }
+        ((VariationRecyclerViewAdapter.ViewHolder) holder).selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
+           managePlusVariation(holder, variation);
+           manageMinusVariation(holder, variation);
         });
-        ((ViewHolder) holder).minusButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                ((VariationRecyclerViewAdapter.ViewHolder) holder).variationPrice.setTextColor(Color.RED);
-            }
-        });
-
-
-
 
 
     }
+
+    private void managePlusVariation(@NonNull final RecyclerView.ViewHolder holder, Variation variation) {
+        if(((ViewHolder) holder).selected.isChecked() && type == Variation.PLUS_VARIATION) {
+            variationsPlusOrder.add(variation);
+        } else {
+            if(variationsPlusOrder.contains(variation)) {
+                variationsPlusOrder.remove(variation);
+            }
+        }
+    }
+
+    private void manageMinusVariation(@NonNull final RecyclerView.ViewHolder holder, Variation variation) {
+        if(((ViewHolder) holder).selected.isChecked() && type == Variation.MINUS_VARIATION) {
+            variationsMinusOrder.add(variation);
+        } else {
+            if(variationsMinusOrder.contains(variation)) {
+                variationsMinusOrder.remove(variation);
+            }
+        }
+    }
+
 
     //restituisce la dimensione della lista
     @Override
@@ -83,8 +111,8 @@ public class VariationRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView variationName;
         private final TextView variationPrice;
-        private final ImageButton plusButton;
-        private final ImageButton minusButton;
+        private final CheckBox selected;
+
         private final LinearLayout variationLinearLayout;
 
 
@@ -92,8 +120,7 @@ public class VariationRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             super(itemView);
             variationName = itemView.findViewById(R.id.variation_name);
             variationPrice = itemView.findViewById(R.id.variation_price);
-            plusButton = itemView.findViewById(R.id.plusButton);
-            minusButton = itemView.findViewById(R.id.minusButton);
+            selected = itemView.findViewById(R.id.selected);
             variationLinearLayout = itemView.findViewById(R.id.variation_linearLayout);
         }
 

@@ -23,16 +23,16 @@ import org.json.JSONObject;
 import java.util.Iterator;
 import java.util.TreeMap;
 
+import model.Order;
 import persistence.LoadJson;
 import persistence.SqLiteDb;
 
 public class MainActivity extends AppCompatActivity implements Iterable<String> {
-
+    private static Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         String url = "https://www.sabersolutions.it/ristodroid/get.php";
 
         getJsonResponse(url);
@@ -44,6 +44,14 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
 
         startActivity(new Intent(getApplicationContext(), Dashboard.class));
 
+    }
+
+    public static void setOrder(Order order) {
+        MainActivity.order = order;
+    }
+
+    public static Order getOrder() {
+        return order;
     }
 
     /**

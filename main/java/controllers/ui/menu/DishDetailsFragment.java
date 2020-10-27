@@ -1,28 +1,34 @@
 package controllers.ui.menu;
 
+import android.app.AlertDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ristodroid.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+
 import java.util.Currency;
 import java.util.Locale;
 
+import controllers.MainActivity;
 import controllers.Utility;
 import model.Allergenic;
 import model.Dish;
 import model.Ingredient;
+import model.Order;
+
 
 public class DishDetailsFragment extends Fragment {
 
@@ -35,15 +41,23 @@ public class DishDetailsFragment extends Fragment {
     private TextView allergenicDish;
     private ImageView imageView;
     private FloatingActionButton addButton;
+    private int quantity;
 
     private Dish dish;
+
+
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dish = getArguments().getParcelable("KEY_DISH_BUNDLE");
+        if(MainActivity.getOrder()==null) {
+            MainActivity.setOrder(new Order(null, null, 0));
+        }
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,13 +95,37 @@ public class DishDetailsFragment extends Fragment {
         allergenicDish.setText(Allergenic.getAllergenicsToString(dish.getAllergenicDishes()));
 
         addButton = root.findViewById(R.id.button_addDishToOrder);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            Toast.makeText(getContext(),"prova",Toast.LENGTH_LONG).show();
-            }
+        addButton.setOnClickListener(v -> {
+        numberDickerDialog();
         });
 
         return root;
+    }
+
+    private void numberDickerDialog(){
+
+        NumberPicker numberPicker = new NumberPicker(getContext());
+        numberPicker.setMaxValue(50);
+        numberPicker.setMinValue(1);
+        numberPicker.setWrapSelectorWheel(true);
+        NumberPicker.OnValueChangeListener onValueChangeListener = (picker, oldVal, newVal) -> quantity = newVal;
+
+        numberPicker.setOnValueChangedListener(onValueChangeListener);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(numberPicker);
+        builder.setTitle("Seleziona Quantità");
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            Bundle bundle = new Bundle();
+            final String key_dish_bundle = "KEY_DISH_BUNDLE";
+            bundle.putParcelable(key_dish_bundle, dish);
+            bundle.putInt("QUANTITY", quantity);
+            Navigation.findNavController(getView())
+                    .navigate(R.id.action_navigation_dish_details_to_navigation_variation, bundle);
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+
+        });
+        builder.show();
     }
 }

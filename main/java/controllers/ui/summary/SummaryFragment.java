@@ -14,15 +14,26 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ristodroid.R;
 
-public class SummaryFragment extends Fragment {
+import controllers.MainActivity;
 
+public class SummaryFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_summary, container, false);
         TextView textView = root.findViewById(R.id.text_dashboard);
-        textView.setText("This is Fragment Summary");
+        String dishes=" ";
+        boolean orderNull = MainActivity.getOrder()!=null && MainActivity.getOrder().getOrderDetails().size()>0;
+
+        if(orderNull) {
+               for (int i = 0; i < MainActivity.getOrder().getOrderDetails().size(); i++) {
+                   dishes += MainActivity.getOrder().getOrderDetails().get(i).getDish().getName() + ", ";
+           }
+        }
+
+        textView.setText(R.string.emptySummary);
         return root;
     }
+
 }

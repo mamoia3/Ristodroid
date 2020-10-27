@@ -26,4 +26,7 @@
         <item quantity="one">Allergene</item>
         <item quantity="other">Allergeni</item>
     </plurals>
+    <string name="minusText">Rimuovi ingredienti</string>
+    <string name="plusText">Aggiungi ingredienti</string>
+    <string name="emptySummary">Riepilogo ordine vuoto</string>
 </resources>

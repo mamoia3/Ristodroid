@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import controllers.Utility;
 import persistence.RistodroidDBSchema;
 import persistence.SqLiteDb;
 
@@ -26,12 +25,11 @@ public class Dish implements Parcelable {
     private Category category;
     private List<Ingredient> ingredientDishes;
     private List<Allergenic> allergenicDishes;
-    private List<OrderDetail> orderDetails;
-    private List<Availability> availabilities;
+    //private List<OrderDetail> orderDetails;
+    //private List<Availability> availabilities;
 
     public Dish(int id, String name, String description, double price, byte[] photo, Category category,
-                List<Ingredient> ingredientDishes, List<Allergenic> allergenicDishes,
-                List<OrderDetail> orderDetails, List<Availability> availabilities) {
+                List<Ingredient> ingredientDishes, List<Allergenic> allergenicDishes) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -40,8 +38,8 @@ public class Dish implements Parcelable {
         this.category = category;
         this.ingredientDishes = ingredientDishes;
         this.allergenicDishes = allergenicDishes;
-        this.orderDetails = orderDetails;
-        this.availabilities = availabilities;
+        //this.orderDetails = orderDetails;
+        //this.availabilities = availabilities;
     }
 
 
@@ -51,7 +49,7 @@ public class Dish implements Parcelable {
         description = in.readString();
         price = in.readDouble();
         photo = in.createByteArray();
-        category = (Category)in.readParcelable(Category.class.getClassLoader());
+        category = in.readParcelable(Category.class.getClassLoader());
         ingredientDishes = in.readArrayList(Ingredient.class.getClassLoader());
         allergenicDishes = in.readArrayList(Allergenic.class.getClassLoader());
     }
@@ -100,13 +98,13 @@ public class Dish implements Parcelable {
         return allergenicDishes;
     }
 
-    public List<OrderDetail> getOrderDetails() {
+    /*public List<OrderDetail> getOrderDetails() {
         return orderDetails;
-    }
+    }*/
 
-    public List<Availability> getAvailabilities() {
+    /*public List<Availability> getAvailabilities() {
         return availabilities;
-    }
+    }*/
 
     public static ArrayList<Dish> getDishes(Context context, int idCategoryRequest) {
 
@@ -178,7 +176,7 @@ public class Dish implements Parcelable {
             ArrayList<Ingredient> myIngredientDish = getIngredients(ingredientCursor, id);
             ArrayList<Allergenic> myAllergenicDish = getAllergenics(allergenicCursor, id);
 
-            dishes.add(new Dish(id, name, description, price, photo, myCategory, myIngredientDish, myAllergenicDish, null, null));
+            dishes.add(new Dish(id, name, description, price, photo, myCategory, myIngredientDish, myAllergenicDish));
 
         }
 

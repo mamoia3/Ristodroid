@@ -8,23 +8,65 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/_minusvariation_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/plusText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minusText" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/variation_recycler_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/plusText" />
 
-    <Button
-        android:id="@+id/confirm_variation"
-        style="@style/button"
+    <TextView
+        android:id="@+id/minusText"
+        style="@style/titleDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/confirm"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:text="@string/minusText"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/_minusvariation_recycler_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/variation_recycler_view" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
 
+    <TextView
+        android:id="@+id/plusText"
+        style="@style/titleDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:text="@string/plusText"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/variation_recycler_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/_minusvariation_recycler_view"
+        app:layout_constraintVertical_bias="0.541" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_confirmVariations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/button_add_dish"
+        android:padding="100dp"
+        android:src="@drawable/plus"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
