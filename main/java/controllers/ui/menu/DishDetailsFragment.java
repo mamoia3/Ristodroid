@@ -112,9 +112,9 @@ public class DishDetailsFragment extends Fragment {
 
         numberPicker.setOnValueChangedListener(onValueChangeListener);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(numberPicker);
-        builder.setTitle("Seleziona Quantità");
+        builder.setTitle(R.string.enterQuantityDish);
 
-        builder.setPositiveButton("OK", (dialog, which) -> {
+        builder.setPositiveButton(R.string.ok, (dialog, which) -> {
             Bundle bundle = new Bundle();
             final String key_dish_bundle = "KEY_DISH_BUNDLE";
             bundle.putParcelable(key_dish_bundle, dish);
@@ -123,7 +123,7 @@ public class DishDetailsFragment extends Fragment {
                     .navigate(R.id.action_navigation_dish_details_to_navigation_variation, bundle);
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> {
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
 
         });
         builder.show();

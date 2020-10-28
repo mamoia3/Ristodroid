@@ -5,10 +5,18 @@
     android:layout_height="match_parent"
     tools:context="controllers.ui.menu.DishesFragment">
 
+    <TextView
+        android:id="@+id/text_empty_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/emptyCategory"
+        style="@style/contentDetails"
+        android:textAlignment="center"
+        android:padding="15dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/dishes_recycler_view"
-        />
+        android:id="@+id/dishes_recycler_view"/>
 
 </FrameLayout>

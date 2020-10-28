@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ import model.Dish;
 
 public class DishesFragment extends Fragment {
 
+    private TextView textEmptyCategory;
     private int id;
     private String name;
     private RecyclerView dishesRecyclerView;
@@ -39,10 +41,12 @@ public class DishesFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_dishes, container, false);
 
         dishesRecyclerView = root.findViewById(R.id.dishes_recycler_view);
+        textEmptyCategory = root.findViewById(R.id.text_empty_category);
+
         dishes = Dish.getDishes(getContext(), id);
-        if(dishes.size() == 0) {
-            Toast.makeText(getContext(),
-                    "Non sono presenti delle portate per questa categoria!", Toast.LENGTH_LONG).show();
+
+        if(dishes.size() != 0) {
+            textEmptyCategory.setVisibility(View.GONE);
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

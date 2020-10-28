@@ -2,11 +2,14 @@ package controllers;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.Navigation;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -14,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ristodroid.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,28 +63,33 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
      * @param url indirizzo per la richiesta GET
      */
     private void getJsonResponse(String url) {
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONObject jsonDb = response.getJSONObject("db");
-                    TreeMap<String, JSONArray> tables = getDbTablesFromJson(jsonDb);
-                    LoadJson.insertJsonIntoDb(tables, getApplicationContext());
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                JSONObject jsonDb = response.getJSONObject("db");
+                TreeMap<String, JSONArray> tables = getDbTablesFromJson(jsonDb);
+                LoadJson.insertJsonIntoDb(tables, getApplicationContext());
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("ErrorDB", "download fallito");
-                Toast toast= Toast.makeText(getApplicationContext(),"Sincronizzazione menu fallita," +
-                        " verrà visualizzato l'ultimo menu disponibile",Toast.LENGTH_LONG);
-                toast.show();
-                //se non riesco a scaricare i dati, recupero il db locale
-                SQLiteDatabase db = new SqLiteDb(getApplicationContext()).getWritableDatabase();
-            }
+        }, error -> {
+            Toast toast= Toast.makeText(getApplicationContext(),"Sincronizzazione menu fallita," +
+                    " verrà visualizzato l'ultimo menu disponibile",Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
+
+            /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.titleFailedConnectionDB);
+            builder.setMessage(R.string.messageFailedConnectionDB);
+            builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+
+
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+            /*se non riesco a scaricare i dati, recupero il db locale
+            SQLiteDatabase db = new SqLiteDb(getApplicationContext()).getWritableDatabase();*/
         });
 
         Volley.newRequestQueue(this).add(jsonRequest);

@@ -13,7 +13,11 @@
     <string name="button_add_dish">Add</string>
     <string name="confirm">Confirm</string>
     <string name="variations">Variations</string>
-
+    <string name="minusText">Remove ingredients</string>
+    <string name="plusText">Add ingredients</string>
+    <string name="emptySummary">Empty summary</string>
+    <string name="enterQuantityDish">Enter Quantity</string>
+    <string name="cancel">Cancel</string>
 
     <!--
     SEZIONE DEDICATA ALLA DEFINIZIONE DEI PLURALI
@@ -27,8 +31,9 @@
         <item quantity="one">Allergenic</item>
         <item quantity="other">Allergenics</item>
     </plurals>
-    <string name="minusText">Remove ingredients</string>
-    <string name="plusText">Add ingredients</string>
-    <string name="emptySummary">Empty summary</string>
+    <string name="titleFailedConnectionDB">Warning</string>
+    <string name="messageFailedConnectionDB">"Unable to connect with the Database. We will use the last menu version available. "</string>
+    <string name="emptyCategory">There are no dishes in this cateogory.</string>
+
 
 </resources>
