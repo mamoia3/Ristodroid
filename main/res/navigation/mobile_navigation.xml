@@ -12,11 +12,7 @@
         tools:layout="@layout/fragment_menu" >
         <action
             android:id="@+id/action_navigation_menu_to_dishesFragment"
-            app:destination="@id/dishesFragment"
-            app:popUpTo="@id/navigation_menu"
-            app:popUpToInclusive="true"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
+            app:destination="@id/dishesFragment" />
     </fragment>
 
     <fragment
@@ -37,9 +33,7 @@
         tools:layout="@layout/fragment_dishes" >
         <action
             android:id="@+id/action_dishesFragment_to_navigation_dish_details"
-            app:destination="@id/navigation_dish_details"
-            app:popUpTo="@id/dishesFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/navigation_dish_details" />
     </fragment>
 
     <fragment
@@ -49,9 +43,7 @@
         tools:layout="@layout/fragment_dish_details" >
         <action
             android:id="@+id/action_navigation_dish_details_to_navigation_variation"
-            app:destination="@id/navigation_variation"
-            app:popUpTo="@id/navigation_dish_details"
-            app:popUpToInclusive="true" />
+            app:destination="@id/navigation_variation" />
     </fragment>
 
     <fragment
