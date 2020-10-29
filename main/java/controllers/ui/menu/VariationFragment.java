@@ -1,6 +1,7 @@
 package controllers.ui.menu;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,7 +101,7 @@ public class VariationFragment extends Fragment {
             MainActivity.getOrder().addOrderDetail(orderDetail);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Piatto aggiunto");
+            builder.setTitle("Inserito");
             builder.setMessage("Piatto aggiunto al carrello");
             builder.setIcon(R.drawable.check);
             builder.setPositiveButton(R.string.ok, (dialog, which) -> {
@@ -111,7 +112,6 @@ public class VariationFragment extends Fragment {
             });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
-
         });
 
         return root;
@@ -120,9 +120,7 @@ public class VariationFragment extends Fragment {
     protected void setSummaryBadge(BottomNavigationView navMenu) {
         boolean orderNotNull = MainActivity.getOrder()!=null && MainActivity.getOrder().getOrderDetails().size()>0;
         if(orderNotNull) {
-            navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(MainActivity.getOrder().getOrderDetails().size());
+            navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
         }
     }
-
-
 }

@@ -67,11 +67,13 @@ public class VariationRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         final int PLUS_COLOR = ContextCompat.getColor(context, R.color.plus_button);
         final int DEFAULT_TEXT_COLOR = ContextCompat.getColor(context, R.color.secondary_text);
 
-        final String euro = Currency.getInstance(Locale.GERMANY).getSymbol() + " ";
-
         final Variation variation = variations.get(position);
+
+        final String euro = Currency.getInstance(Locale.GERMANY).getSymbol() + " ";
+        String price = euro + Utility.priceToString(variation.getPrice());
+
         ((VariationRecyclerViewAdapter.ViewHolder) holder).variationName.setText(variation.getName());
-        ((VariationRecyclerViewAdapter.ViewHolder) holder).variationPrice.setText(euro + Utility.priceToString(variation.getPrice()));
+        ((VariationRecyclerViewAdapter.ViewHolder) holder).variationPrice.setText(price);
         ((VariationRecyclerViewAdapter.ViewHolder) holder).selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
            managePlusVariation(holder, variation);
            manageMinusVariation(holder, variation);

@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ristodroid.R;
 
-import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import controllers.Utility;
 import model.Dish;
@@ -84,13 +82,11 @@ public class DishRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             dishTitle = itemView.findViewById(R.id.text_dish_title);
-            dishIngredient = itemView.findViewById(R.id.text_dish_ingredients);
-            dishPrice = itemView.findViewById(R.id.text_dish_price);
+            dishIngredient = itemView.findViewById(R.id.summary_text_add_variations);
+            dishPrice = itemView.findViewById(R.id.summary_text_dish_price);
             dishImage = itemView.findViewById(R.id.image_menu_dish);
             dishesLinearLayout = itemView.findViewById(R.id.dishes_linearlayout);
         }
-
-
     }
 
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import controllers.Utility;
+
 public class OrderDetail {
     private static int COUNT = 0;
     private int id;
@@ -77,5 +79,22 @@ public class OrderDetail {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public static int getTotalQuantity (List<OrderDetail> list){
+        int sum = 0;
+        for(int i =0; i < list.size(); i++){
+            sum = sum + list.get(i).getQuantity();
+        }
+        return sum;
+    }
+
+
+    public static double getTotalPriceVariation (OrderDetail detail){
+        double total = 0;
+        for(int i=0; i<detail.getVariationPlusList().size();i++){
+            total = total +detail.getVariationPlusList().get(i).getPrice();
+        }
+        return total;
     }
 }

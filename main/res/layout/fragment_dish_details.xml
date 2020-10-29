@@ -39,7 +39,7 @@
                 <TextView
                     android:id="@+id/text_title_dish_details"
                     style="@style/titleDetails"
-                    android:layout_width="396dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:textAlignment="center"
@@ -52,7 +52,7 @@
                 <TextView
                     android:id="@+id/text_descption_dish_details"
                     style="@style/contentDetails"
-                    android:layout_width="396dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:textAlignment="center"
@@ -65,7 +65,7 @@
                 <TextView
                     android:id="@+id/text_price_dish_details"
                     style="@style/titleDetails"
-                    android:layout_width="396dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:textAlignment="center"
@@ -78,7 +78,7 @@
                 <TextView
                     android:id="@+id/text_title_ingredient_list"
                     style="@style/titleDetails"
-                    android:layout_width="396dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     card_view:layout_constraintBottom_toTopOf="@+id/text_list_ingrediets_dish_details"
@@ -90,7 +90,7 @@
                 <TextView
                     android:id="@+id/text_list_ingrediets_dish_details"
                     style="@style/contentDetails"
-                    android:layout_width="396dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     card_view:layout_constraintBottom_toTopOf="@+id/text_title_allergenic_list"
@@ -102,7 +102,7 @@
                 <TextView
                     android:id="@+id/text_title_allergenic_list"
                     style="@style/titleDetails"
-                    android:layout_width="396dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     card_view:layout_constraintBottom_toTopOf="@+id/text_list_allergenic_dish_details"

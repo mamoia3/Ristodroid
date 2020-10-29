@@ -29,19 +29,19 @@
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/text_dish_ingredients"
+                android:id="@+id/summary_text_add_variations"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_dish_title"
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/image_menu_dish"
                 android:paddingHorizontal="3dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/text_dish_price"
+                card_view:layout_constraintBottom_toTopOf="@+id/summary_text_dish_price"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toEndOf="@+id/image_menu_dish"
                 card_view:layout_constraintTop_toBottomOf="@+id/text_dish_title"
-                tools:text="Pomodoro san marzano DOP, mozzarella, basilico, pecorino romano"></TextView>
+                tools:text="Pomodoro san marzano DOP, mozzarella, basilico, pecorino romano"/>
 
             <TextView
                 android:id="@+id/text_dish_title"
@@ -51,20 +51,20 @@
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/image_menu_dish"
                 android:paddingHorizontal="3dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/text_dish_ingredients"
+                card_view:layout_constraintBottom_toTopOf="@+id/summary_text_add_variations"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toEndOf="@+id/image_menu_dish"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_chainStyle="packed"
-                tools:text="margherita"></TextView>
+                tools:text="margherita"/>
 
             <TextView
-                android:id="@+id/text_dish_price"
+                android:id="@+id/summary_text_dish_price"
                 style="@style/price"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
-                android:layout_below="@id/text_dish_ingredients"
+                android:layout_below="@id/summary_text_add_variations"
                 android:layout_marginEnd="2dp"
                 android:layout_toEndOf="@id/image_menu_dish"
                 android:gravity="end"
@@ -73,7 +73,7 @@
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toEndOf="@+id/image_menu_dish"
-                tools:text="€4.50"></TextView>
+                tools:text="€4.50"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

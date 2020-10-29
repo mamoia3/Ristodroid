@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import controllers.Utility;
 import persistence.RistodroidDBSchema;
 import persistence.SqLiteDb;
 
@@ -108,5 +109,13 @@ public class Variation {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public static String getVariationsToString (List<Variation> variations) {
+        ArrayList<String> list = new ArrayList<>();
+        for(int i=0; i<variations.size(); i++) {
+            list.add(variations.get(i).getName());
+        }
+        return Utility.listToStringWithDelimiter(list, ", ");
     }
 }

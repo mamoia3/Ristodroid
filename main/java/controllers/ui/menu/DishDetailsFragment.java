@@ -96,7 +96,7 @@ public class DishDetailsFragment extends Fragment {
 
         addButton = root.findViewById(R.id.button_addDishToOrder);
         addButton.setOnClickListener(v -> {
-        numberDickerDialog();
+            numberDickerDialog();
         });
 
         return root;
@@ -108,13 +108,12 @@ public class DishDetailsFragment extends Fragment {
         numberPicker.setMaxValue(50);
         numberPicker.setMinValue(1);
         numberPicker.setWrapSelectorWheel(true);
-        NumberPicker.OnValueChangeListener onValueChangeListener = (picker, oldVal, newVal) -> quantity = newVal;
 
-        numberPicker.setOnValueChangedListener(onValueChangeListener);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(numberPicker);
         builder.setTitle(R.string.enterQuantityDish);
 
         builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+            quantity = numberPicker.getValue();
             Bundle bundle = new Bundle();
             final String key_dish_bundle = "KEY_DISH_BUNDLE";
             bundle.putParcelable(key_dish_bundle, dish);

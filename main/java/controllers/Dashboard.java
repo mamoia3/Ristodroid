@@ -16,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.ristodroid.R;
 
 import controllers.ui.menu.MenuFragment;
+import model.OrderDetail;
 
 /**
  * In questa classe ci occupiamo di scambiare i vari fragment
@@ -59,7 +60,7 @@ public class Dashboard extends AppCompatActivity  {
     protected void setSummaryBadge(BottomNavigationView navMenu) {
         boolean orderNotNull = MainActivity.getOrder()!=null && MainActivity.getOrder().getOrderDetails().size()>0;
         if(orderNotNull) {
-            navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(MainActivity.getOrder().getOrderDetails().size());
+            navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
         }
     }
 
