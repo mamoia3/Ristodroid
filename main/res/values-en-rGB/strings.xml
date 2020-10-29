@@ -39,6 +39,7 @@
     <string name="deleteDish">Delete dish</string>
     <string name="piece">Pcs</string>
     <string name="deleteDishMessage">re you sure to delete this dish?</string>
+    <string name="addDishToOrder">DIsh added to order.</string>
 
 
 </resources>

@@ -40,5 +40,6 @@
     <string name="deleteDish">Elimina piatto</string>
     <string name="piece">Pz</string>
     <string name="deleteDishMessage">Sei sicuro di voler rimuovere il piatto?</string>
+    <string name="addDishToOrder">Piatto aggiunto all\'ordine.</string>
 
 </resources>

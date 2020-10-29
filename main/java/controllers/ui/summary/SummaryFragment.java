@@ -76,6 +76,34 @@ public class SummaryFragment extends Fragment {
                         manageVisibilityOrderEmpty();
                     }
                 }
+
+                @Override
+                public void onAddQuantityClick(int position) {
+                    details.get(position).setQuantity(details.get(position).getQuantity() + 1);
+                    adapter.notifyDataSetChanged();
+                    setSummaryBadge(navMenu);
+                }
+
+                @Override
+                public void onRemoveQuantityClick(int position) {
+                    int oldQuantity = details.get(position).getQuantity();
+
+                    if((oldQuantity - 1) > 0){
+                        details.get(position).setQuantity(oldQuantity - 1);
+                        adapter.notifyDataSetChanged();
+                    }else{
+                        details.remove(position);
+                        summaryRecyclerView.removeViewAt(position);
+                        adapter.notifyItemRemoved(position);
+                        adapter.notifyItemRangeChanged(position,details.size());
+
+                        if(details.size() == 0){
+                            manageVisibilityOrderEmpty();
+                        }
+                    }
+
+                    setSummaryBadge(navMenu);
+                }
             });
 
         }else {

@@ -101,8 +101,7 @@ public class VariationFragment extends Fragment {
             MainActivity.getOrder().addOrderDetail(orderDetail);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Inserito");
-            builder.setMessage("Piatto aggiunto al carrello");
+            builder.setTitle(R.string.addDishToOrder);
             builder.setIcon(R.drawable.check);
             builder.setPositiveButton(R.string.ok, (dialog, which) -> {
                 setSummaryBadge(navMenu);

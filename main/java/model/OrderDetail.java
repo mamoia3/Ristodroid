@@ -11,6 +11,11 @@ public class OrderDetail {
     private int id;
     private Order order;
     private Dish dish;
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     private int quantity;
     private List<Variation> variationPlusList;
     private List<Variation> variationMinusList;

@@ -50,6 +50,8 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     public interface manageClickOnButtonCard{
         void onDeleteClick(int position);
+        void onAddQuantityClick(int position);
+        void onRemoveQuantityClick(int position);
     }
 
 
@@ -100,16 +102,18 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
         ((SummaryRecycleViewAdapter.ViewHolder) holder).buttonAddQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"ADD",Toast.LENGTH_LONG).show();
-
+                if(position != RecyclerView.NO_POSITION){
+                    callManageMethod.onAddQuantityClick(position);
+                }
             }
         });
 
         ((ViewHolder) holder).buttonRemoveQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Remove",Toast.LENGTH_LONG).show();
-
+                if(position != RecyclerView.NO_POSITION){
+                    callManageMethod.onRemoveQuantityClick(position);
+                }
             }
         });
 
