@@ -18,6 +18,7 @@
     <string name="emptySummary">Non ci sono piatti in questo ordine.</string>
     <string name="enterQuantityDish">Inserire Quantità</string>
     <string name="cancel">Annulla</string>
+    <string name="confirmOrderMessage">Sei sicuro di voler confermare l\'ordine? Se clicchi si, non potrai più modificarlo!</string>
 
 
     <!--

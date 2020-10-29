@@ -19,6 +19,7 @@ public class Order implements Parcelable {
     private Table table;
     private Seat seat;
     private int seatNumber;
+    private boolean confirmed;
     private List<OrderDetail> orderDetails;
 
     public Order(Table table, Seat seat, int seatNumber) {
@@ -27,6 +28,7 @@ public class Order implements Parcelable {
         this.table = table;
         this.seat = seat;
         this.seatNumber = seatNumber;
+        this.confirmed = false;
         this.orderDetails = new ArrayList<>();
     }
 
@@ -37,6 +39,14 @@ public class Order implements Parcelable {
         seat = in.readParcelable(Seat.class.getClassLoader());
         seatNumber = in.readInt();
         orderDetails = in.readArrayList(OrderDetail.class.getClassLoader());
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {

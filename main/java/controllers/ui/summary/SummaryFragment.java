@@ -1,16 +1,15 @@
 package controllers.ui.summary;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,11 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import controllers.Dashboard;
 import controllers.MainActivity;
-import controllers.ui.menu.DishRecyclerViewAdapter;
-import controllers.ui.menu.SummaryRecycleViewAdapter;
-import model.Dish;
 import model.OrderDetail;
 
 public class SummaryFragment extends Fragment {
@@ -32,6 +27,9 @@ public class SummaryFragment extends Fragment {
     private BottomNavigationView navMenu;
     private TextView emptySummary;
     private FloatingActionButton confirmButton;
+    private Button deleteDish;
+    private Button plusQuantity;
+    private Button minusQuantity;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -106,6 +104,21 @@ public class SummaryFragment extends Fragment {
                 }
             });
 
+            confirmButton.setOnClickListener(v-> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.confirmOrderMessage);
+                //builder.setMessage("Piatto aggiunto al carrello");
+                builder.setIcon(R.drawable.check);
+                builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+
+                });
+                builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            });
+
         }else {
             emptySummary.setText(R.string.emptySummary);
             confirmButton.setVisibility(View.GONE);
@@ -120,7 +133,7 @@ public class SummaryFragment extends Fragment {
         confirmButton.setVisibility(View.GONE);
     }
 
-    protected void setSummaryBadge(BottomNavigationView navMenu) {
+    protected void setSummaryBadge (BottomNavigationView navMenu) {
         boolean orderNotNull = MainActivity.getOrder()!=null;
         if(orderNotNull) {
             if(MainActivity.getOrder().getOrderDetails().size() == 0){

@@ -73,7 +73,9 @@ public class VariationRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         String price = euro + Utility.priceToString(variation.getPrice());
 
         ((VariationRecyclerViewAdapter.ViewHolder) holder).variationName.setText(variation.getName());
-        ((VariationRecyclerViewAdapter.ViewHolder) holder).variationPrice.setText(price);
+        if(type==Variation.PLUS_VARIATION) {
+            ((VariationRecyclerViewAdapter.ViewHolder) holder).variationPrice.setText(price);
+        }
         ((VariationRecyclerViewAdapter.ViewHolder) holder).selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
            managePlusVariation(holder, variation);
            manageMinusVariation(holder, variation);

@@ -1,18 +1,11 @@
-package controllers.ui.menu;
+package controllers.ui.summary;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,25 +13,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ristodroid.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
-import controllers.MainActivity;
 import controllers.Utility;
-import controllers.ui.summary.SummaryFragment;
-import controllers.ui.summary.UpdateSummaryRecycleView;
-import model.Order;
 import model.OrderDetail;
 import model.Variation;
 
@@ -52,6 +35,7 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
         void onDeleteClick(int position);
         void onAddQuantityClick(int position);
         void onRemoveQuantityClick(int position);
+
     }
 
 
@@ -180,6 +164,18 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
             orderDetailsLinearLayout = itemView.findViewById(R.id.orderDetails_linearlayout);
             row = itemView.findViewById(R.id.cardview_list_order_dish);
             recycleView = itemView.findViewById(R.id.summary_recycler_view);
+        }
+
+        public Button getButtonAddQuantity() {
+            return buttonAddQuantity;
+        }
+
+        public Button getButtonRemoveQuantity() {
+            return buttonRemoveQuantity;
+        }
+
+        public Button getButtonDeleteDish() {
+            return buttonDeleteDish;
         }
     }
 }
