@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ristodroid.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -27,7 +29,10 @@ import model.OrderDetail;
 
 public class SummaryFragment extends Fragment {
 
+    private BottomNavigationView navMenu;
     private TextView emptySummary;
+    private FloatingActionButton confirmButton;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,22 +42,64 @@ public class SummaryFragment extends Fragment {
         boolean orderNotEmpty = MainActivity.getOrder()!=null && MainActivity.getOrder().getOrderDetails().size()>0;
 
         emptySummary = root.findViewById(R.id.text_empty_summary);
+        confirmButton = root.findViewById(R.id.button_CloseOrder);
+
+        View dashboardView = getActivity().findViewById(R.id.dashboardView);
+        navMenu= dashboardView.findViewById(R.id.nav_view);
+
         if(orderNotEmpty){
             emptySummary.setVisibility(View.GONE);
+
             RecyclerView summaryRecyclerView = root.findViewById(R.id.summary_recycler_view);
 
             List<OrderDetail> details = MainActivity.getOrder().getOrderDetails();
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             summaryRecyclerView.setLayoutManager(linearLayoutManager);
-            summaryRecyclerView.setAdapter(new SummaryRecycleViewAdapter(details, getContext()));
+
+            SummaryRecycleViewAdapter adapter = new SummaryRecycleViewAdapter(details,getContext());
+            summaryRecyclerView.setAdapter(adapter);
+
             summaryRecyclerView.setHasFixedSize(true); //cardview hanno tutte le stesse dimensioni
+
+            adapter.setOnItemClickListener(new SummaryRecycleViewAdapter.manageClickOnButtonCard() {
+                @Override
+                public void onDeleteClick(int position) {
+                    details.remove(position);
+                    summaryRecyclerView.removeViewAt(position);
+                    adapter.notifyItemRemoved(position);
+                    adapter.notifyItemRangeChanged(position,details.size());
+
+                    setSummaryBadge(navMenu);
+
+                    if(details.size() == 0){
+                        manageVisibilityOrderEmpty();
+                    }
+                }
+            });
 
         }else {
             emptySummary.setText(R.string.emptySummary);
+            confirmButton.setVisibility(View.GONE);
         }
 
         return root;
     }
 
+    private void manageVisibilityOrderEmpty (){
+        emptySummary.setText(R.string.emptySummary);
+        emptySummary.setVisibility(View.VISIBLE);
+        confirmButton.setVisibility(View.GONE);
+    }
+
+    protected void setSummaryBadge(BottomNavigationView navMenu) {
+        boolean orderNotNull = MainActivity.getOrder()!=null;
+        if(orderNotNull) {
+            if(MainActivity.getOrder().getOrderDetails().size() == 0){
+                navMenu.removeBadge(R.id.navigation_summary);
+            }else {
+                navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
+            }
+        }
+    }
 }

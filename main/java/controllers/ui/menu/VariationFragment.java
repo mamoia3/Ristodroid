@@ -118,9 +118,13 @@ public class VariationFragment extends Fragment {
     }
 
     protected void setSummaryBadge(BottomNavigationView navMenu) {
-        boolean orderNotNull = MainActivity.getOrder()!=null && MainActivity.getOrder().getOrderDetails().size()>0;
+        boolean orderNotNull = MainActivity.getOrder()!=null;
         if(orderNotNull) {
-            navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
+            if(MainActivity.getOrder().getOrderDetails().size() == 0){
+                navMenu.removeBadge(R.id.navigation_summary);
+            }else {
+                navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
+            }
         }
     }
 }

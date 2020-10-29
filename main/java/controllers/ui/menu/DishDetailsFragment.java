@@ -94,7 +94,7 @@ public class DishDetailsFragment extends Fragment {
         allergenicDish = root.findViewById(R.id.text_list_allergenic_dish_details);
         allergenicDish.setText(Allergenic.getAllergenicsToString(dish.getAllergenicDishes()));
 
-        addButton = root.findViewById(R.id.button_addDishToOrder);
+        addButton = root.findViewById(R.id.button_CloseOrder);
         addButton.setOnClickListener(v -> {
             numberDickerDialog();
         });

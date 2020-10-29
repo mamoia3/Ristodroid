@@ -1,20 +1,35 @@
 package controllers.ui.menu;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.renderscript.Sampler;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ristodroid.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +37,7 @@ import java.util.Locale;
 import controllers.MainActivity;
 import controllers.Utility;
 import controllers.ui.summary.SummaryFragment;
+import controllers.ui.summary.UpdateSummaryRecycleView;
 import model.Order;
 import model.OrderDetail;
 import model.Variation;
@@ -30,6 +46,17 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     private final List<OrderDetail> orderDetailsList;
     private final Context context;
+    private manageClickOnButtonCard callManageMethod;
+
+    public interface manageClickOnButtonCard{
+        void onDeleteClick(int position);
+    }
+
+
+    public void setOnItemClickListener (manageClickOnButtonCard listener){
+        callManageMethod = listener;
+    }
+
 
     public SummaryRecycleViewAdapter(List<OrderDetail> orderDetailsList, Context context){
         this.orderDetailsList = orderDetailsList;
@@ -70,9 +97,10 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
         ((ViewHolder) holder).textPrice.setText(total);
         ((ViewHolder) holder).dishImage.setImageBitmap(Utility.byteToBitmap(detail.getDish().getPhoto()));
 
-        ((ViewHolder) holder).buttonAddQuantity.setOnClickListener(new View.OnClickListener() {
+        ((SummaryRecycleViewAdapter.ViewHolder) holder).buttonAddQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(context,"ADD",Toast.LENGTH_LONG).show();
 
             }
         });
@@ -80,14 +108,35 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
         ((ViewHolder) holder).buttonRemoveQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(context,"Remove",Toast.LENGTH_LONG).show();
 
             }
         });
 
-        ((ViewHolder) holder).buttonDeleteDish.setOnClickListener(new View.OnClickListener() {
+        ((SummaryRecycleViewAdapter.ViewHolder) holder).buttonDeleteDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(R.string.deleteDishMessage);
+                //builder.setMessage("Piatto aggiunto al carrello");
+                builder.setIcon(R.drawable.alert_circle_outline);
+                builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+
+                    /*Recupero la position della riga su cui ho cliccato ed invoco tramite l'interfacci
+                    il metodo onDeleteClick implentato nel fragment che ospita la RecycleVicew*/
+                    if(position != RecyclerView.NO_POSITION){
+                        callManageMethod.onDeleteClick(position);
+                    }
+
+                });
+                builder.setNegativeButton(R.string.cancel, (dialog, which) ->{
+                    Toast.makeText(context,"Annullato",Toast.LENGTH_LONG).show();
+
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
     }
@@ -105,10 +154,12 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
         private final TextView textQuantity;
         private final TextView textPrice;
         private final ImageView dishImage;
-        private final ImageButton buttonAddQuantity;
-        private final ImageButton buttonRemoveQuantity;
-        private final ImageButton buttonDeleteDish;
+        private final Button buttonAddQuantity;
+        private final Button buttonRemoveQuantity;
+        private final Button buttonDeleteDish;
         private final LinearLayout orderDetailsLinearLayout;
+        private final CardView row;
+        private final RecyclerView recycleView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -123,6 +174,8 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
             buttonRemoveQuantity = itemView.findViewById(R.id.summary_btn_remove_quantity);
             buttonDeleteDish = itemView.findViewById(R.id.summary_btn_delete_dish);
             orderDetailsLinearLayout = itemView.findViewById(R.id.orderDetails_linearlayout);
+            row = itemView.findViewById(R.id.cardview_list_order_dish);
+            recycleView = itemView.findViewById(R.id.summary_recycler_view);
         }
     }
 }
