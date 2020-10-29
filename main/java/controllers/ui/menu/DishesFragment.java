@@ -33,12 +33,12 @@ public class DishesFragment extends Fragment {
         super.onCreate(savedInstanceState);
         id = getArguments().getInt("id");
         name = getArguments().getString("category");
-        ((Dashboard) getActivity()).getSupportActionBar().setTitle(name);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_dishes, container, false);
+        ((Dashboard) getActivity()).getSupportActionBar().setTitle(name);
 
         dishesRecyclerView = root.findViewById(R.id.dishes_recycler_view);
         textEmptyCategory = root.findViewById(R.id.text_empty_category);
