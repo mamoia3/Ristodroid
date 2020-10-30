@@ -40,6 +40,14 @@
     <string name="titleNoAddingDishCloseOrder">Order sent!</string>
     <string name="contentNoAddingDishCloseOrder">You can\'t add other dishes to this order.</string>
 
+    <!-- SEZIONE NFC  -->
+
+    <string name="message_beaming_complete">Beaming complete</string>
+    <string name="hint_your_message">Your message</string>
+    <string name="label_your_message">Outgoing NFC message:</string>
+    <string name="title_btn_set">Set Message</string>
+
+
     <!--
         SEZIONE DEDICATA ALLA DEFINIZIONE DEI PLURALI
     -->

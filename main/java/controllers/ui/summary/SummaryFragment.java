@@ -1,6 +1,7 @@
 package controllers.ui.summary;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import controllers.MainActivity;
 import model.OrderDetail;
+import nfc.SenderActivity;
 
 public class SummaryFragment extends Fragment {
 
@@ -118,6 +120,7 @@ public class SummaryFragment extends Fragment {
                         adapter.HideButtonsAfterConfirm();
                         this.confirmButton.setVisibility(View.INVISIBLE);
                         setSummaryBadge(navMenu);
+                        startActivity(new Intent(getContext(), SenderActivity.class));
                     });
                     builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
                     });

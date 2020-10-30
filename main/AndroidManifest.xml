@@ -3,6 +3,10 @@
     package="com.example.ristodroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc"
+        android:required="true" />
+    <uses-sdk android:minSdkVersion="16"/>
 
     <application
         android:allowBackup="true"
@@ -26,6 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="nfc.SenderActivity"
+            android:label="NFC"></activity>
     </application>
 
 </manifest>
