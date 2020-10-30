@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,11 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ristodroid.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 import controllers.Dashboard;
 import controllers.MainActivity;
+import controllers.ui.summary.SummaryRecycleViewAdapter;
 import model.Dish;
 import model.OrderDetail;
 import model.Variation;
@@ -36,6 +41,7 @@ public class VariationFragment extends Fragment {
     private FloatingActionButton confirm;
     private Dish dish;
     private int quantity;
+    private ConstraintLayout prova;
 
 
     public VariationFragment() {
@@ -64,6 +70,8 @@ public class VariationFragment extends Fragment {
 
         View dashboardView = getActivity().findViewById(R.id.dashboardView);
         navMenu= dashboardView.findViewById(R.id.nav_view);
+
+        prova = root.findViewById(R.id.navigation_variation);
 
 
         LinearLayoutManager minusLinearLayoutManager = new LinearLayoutManager(getContext());
@@ -94,11 +102,12 @@ public class VariationFragment extends Fragment {
             plusText.setVisibility(View.GONE);
         }
 
+
         confirm.setOnClickListener(v -> {
             OrderDetail orderDetail = new OrderDetail(MainActivity.getOrder(), dish, quantity);
             orderDetail.setVariationMinusList(minusAdapter.getVariationsMinusOrder());
             orderDetail.setVariationPlusList(plusAdapter.getVariationsPlusOrder());
-            MainActivity.getOrder().addOrderDetail(orderDetail);
+            addToOrder(orderDetail);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(R.string.addDishToOrder);
@@ -106,8 +115,12 @@ public class VariationFragment extends Fragment {
             builder.setPositiveButton(R.string.ok, (dialog, which) -> {
                 setSummaryBadge(navMenu);
 
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", dish.getCategory().getId());
+                bundle.putString("category", dish.getCategory().getName());
+
                 Navigation.findNavController(getView())
-                        .navigate(R.id.action_navigation_variation_to_navigation_menu);
+                        .navigate(R.id.action_navigation_variation_to_dish_fragment, bundle);
             });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
@@ -116,14 +129,36 @@ public class VariationFragment extends Fragment {
         return root;
     }
 
-    protected void setSummaryBadge(BottomNavigationView navMenu) {
+    protected void setSummaryBadge (BottomNavigationView navMenu) {
         boolean orderNotNull = MainActivity.getOrder()!=null;
         if(orderNotNull) {
-            if(MainActivity.getOrder().getOrderDetails().size() == 0){
+            if((MainActivity.getOrder().getOrderDetails().size() == 0) || (MainActivity.getOrder().isConfirmed())){
                 navMenu.removeBadge(R.id.navigation_summary);
             }else {
                 navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
             }
         }
     }
+
+    private void addToOrder(OrderDetail orderDetail){
+        boolean findDish = false;
+
+        for(int i=0; i < MainActivity.getOrder().getOrderDetails().size(); i++){
+            if (MainActivity.getOrder().getOrderDetails().get(i).getDish().equals(orderDetail.getDish())){
+
+                boolean dishSameVariations = MainActivity.getOrder().getOrderDetails().get(i).getVariationPlusList().equals(orderDetail.getVariationPlusList())
+                                && MainActivity.getOrder().getOrderDetails().get(i).getVariationMinusList().equals(orderDetail.getVariationMinusList());
+               if(dishSameVariations){
+                   MainActivity.getOrder().getOrderDetails().get(i).setQuantity(MainActivity.getOrder().getOrderDetails().get(i).getQuantity() + orderDetail.getQuantity());
+                   findDish=true;
+                   break;
+               }
+            }
+        }
+
+        if(!findDish){
+            MainActivity.getOrder().getOrderDetails().add(orderDetail);
+        }
+    }
+
 }

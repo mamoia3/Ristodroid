@@ -95,9 +95,23 @@ public class DishDetailsFragment extends Fragment {
         allergenicDish.setText(Allergenic.getAllergenicsToString(dish.getAllergenicDishes()));
 
         addButton = root.findViewById(R.id.button_CloseOrder);
+
+
         addButton.setOnClickListener(v -> {
-            numberDickerDialog();
+            if(MainActivity.getOrder().isConfirmed()){
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.titleNoAddingDishCloseOrder);
+                builder.setMessage(R.string.contentNoAddingDishCloseOrder);
+                builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+
+                });
+
+                builder.show();
+            }else {
+                numberDickerDialog();
+            }
         });
+
 
         return root;
     }

@@ -41,5 +41,8 @@
     <string name="deleteDishMessage">re you sure to delete this dish?</string>
     <string name="addDishToOrder">DIsh added to order.</string>
     <string name="confirmOrderMessage">Are you sure you want to confirm the order? If you click yes, you will no longer be able to edit it!</string>
+    <string name="closeOrderTitle">Close order</string>
+    <string name="titleNoAddingDishCloseOrder">Order sent!</string>
+    <string name="contentNoAddingDishCloseOrder">You can\'t add other dishes to this order.</string>
 
 </resources>

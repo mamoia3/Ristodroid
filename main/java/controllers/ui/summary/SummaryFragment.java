@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,10 +26,6 @@ public class SummaryFragment extends Fragment {
     private BottomNavigationView navMenu;
     private TextView emptySummary;
     private FloatingActionButton confirmButton;
-    private Button deleteDish;
-    private Button plusQuantity;
-    private Button minusQuantity;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,13 +35,18 @@ public class SummaryFragment extends Fragment {
         boolean orderNotEmpty = MainActivity.getOrder()!=null && MainActivity.getOrder().getOrderDetails().size()>0;
 
         emptySummary = root.findViewById(R.id.text_empty_summary);
-        confirmButton = root.findViewById(R.id.button_CloseOrder);
 
         View dashboardView = getActivity().findViewById(R.id.dashboardView);
         navMenu= dashboardView.findViewById(R.id.nav_view);
+        confirmButton = root.findViewById(R.id.button_CloseOrder);
 
         if(orderNotEmpty){
             emptySummary.setVisibility(View.GONE);
+
+            if(!MainActivity.getOrder().isConfirmed()){
+                confirmButton.setVisibility(View.VISIBLE);
+            }
+
 
             RecyclerView summaryRecyclerView = root.findViewById(R.id.summary_recycler_view);
 
@@ -104,24 +104,31 @@ public class SummaryFragment extends Fragment {
                 }
             });
 
-            confirmButton.setOnClickListener(v-> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle(R.string.confirmOrderMessage);
-                //builder.setMessage("Piatto aggiunto al carrello");
-                builder.setIcon(R.drawable.check);
-                builder.setPositiveButton(R.string.ok, (dialog, which) -> {
 
-                });
-                builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
-                });
+            if(!MainActivity.getOrder().isConfirmed()){
+                confirmButton.setOnClickListener(v-> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle(R.string.closeOrderTitle);
+                    builder.setMessage(R.string.confirmOrderMessage);
+                    builder.setIcon(R.drawable.check);
+                    builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+                        MainActivity.getOrder().setConfirmed(true);
+                        //Chiamo attraverso l'adapter il metodo che aggiorna la recycle view in modo
+                        //da aggiornare tutti i button rendendoli non visibili
+                        adapter.HideButtonsAfterConfirm();
+                        this.confirmButton.setVisibility(View.INVISIBLE);
+                        setSummaryBadge(navMenu);
+                    });
+                    builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    });
 
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                });
+            }
 
         }else {
             emptySummary.setText(R.string.emptySummary);
-            confirmButton.setVisibility(View.GONE);
         }
 
         return root;
@@ -136,7 +143,7 @@ public class SummaryFragment extends Fragment {
     protected void setSummaryBadge (BottomNavigationView navMenu) {
         boolean orderNotNull = MainActivity.getOrder()!=null;
         if(orderNotNull) {
-            if(MainActivity.getOrder().getOrderDetails().size() == 0){
+            if((MainActivity.getOrder().getOrderDetails().size() == 0) ||(MainActivity.getOrder().isConfirmed())){
                 navMenu.removeBadge(R.id.navigation_summary);
             }else {
                 navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));

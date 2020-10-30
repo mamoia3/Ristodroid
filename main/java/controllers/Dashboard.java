@@ -58,10 +58,10 @@ public class Dashboard extends AppCompatActivity  {
         setSummaryBadge(navMenu);
     }
 
-    protected void setSummaryBadge(BottomNavigationView navMenu) {
+    protected void setSummaryBadge (BottomNavigationView navMenu) {
         boolean orderNotNull = MainActivity.getOrder()!=null;
         if(orderNotNull) {
-            if(MainActivity.getOrder().getOrderDetails().size() == 0){
+            if((MainActivity.getOrder().getOrderDetails().size() == 0) ||(MainActivity.getOrder().isConfirmed())){
                 navMenu.removeBadge(R.id.navigation_summary);
             }else {
                 navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));

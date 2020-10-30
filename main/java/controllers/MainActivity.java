@@ -75,21 +75,7 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
         }, error -> {
             Toast toast= Toast.makeText(getApplicationContext(),"Sincronizzazione menu fallita," +
                     " verrà visualizzato l'ultimo menu disponibile",Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
             toast.show();
-
-            /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.titleFailedConnectionDB);
-            builder.setMessage(R.string.messageFailedConnectionDB);
-            builder.setPositiveButton(R.string.ok, (dialog, which) -> {
-
-
-            });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-
-            /*se non riesco a scaricare i dati, recupero il db locale
-            SQLiteDatabase db = new SqLiteDb(getApplicationContext()).getWritableDatabase();*/
         });
 
         Volley.newRequestQueue(this).add(jsonRequest);

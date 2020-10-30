@@ -42,5 +42,8 @@
     <string name="piece">Pz</string>
     <string name="deleteDishMessage">Sei sicuro di voler rimuovere il piatto?</string>
     <string name="addDishToOrder">Piatto aggiunto all\'ordine.</string>
+    <string name="closeOrderTitle">Completa ordine</string>
+    <string name="titleNoAddingDishCloseOrder">Ordine inviato!</string>
+    <string name="contentNoAddingDishCloseOrder">Non puoi aggiungere altri piatti a questo ordine.</string>
 
 </resources>

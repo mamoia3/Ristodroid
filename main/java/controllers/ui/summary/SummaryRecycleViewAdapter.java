@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ristodroid.R;
@@ -21,6 +19,7 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
+import controllers.MainActivity;
 import controllers.Utility;
 import model.OrderDetail;
 import model.Variation;
@@ -35,7 +34,6 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
         void onDeleteClick(int position);
         void onAddQuantityClick(int position);
         void onRemoveQuantityClick(int position);
-
     }
 
 
@@ -68,6 +66,7 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
                     + Variation.getVariationsToString(detail.getVariationPlusList());
             ((ViewHolder) holder).textAddVariation.setText(Utility.createIndentedText(addVariationString,0,28));
         }else{
+            ((ViewHolder) holder).textAddVariation.setVisibility(View.GONE);
         }
 
         if(detail.getVariationMinusList().size()!=0){
@@ -83,50 +82,60 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
         ((ViewHolder) holder).textPrice.setText(total);
         ((ViewHolder) holder).dishImage.setImageBitmap(Utility.byteToBitmap(detail.getDish().getPhoto()));
 
-        ((SummaryRecycleViewAdapter.ViewHolder) holder).buttonAddQuantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        ((SummaryRecycleViewAdapter.ViewHolder) holder).buttonAddQuantity.setOnClickListener(v -> {
+            if(position != RecyclerView.NO_POSITION){
+                callManageMethod.onAddQuantityClick(position);
+            }
+        });
+
+
+        ((ViewHolder) holder).buttonRemoveQuantity.setOnClickListener(v -> {
+            if(position != RecyclerView.NO_POSITION){
+                callManageMethod.onRemoveQuantityClick(position);
+            }
+        });
+
+        ((SummaryRecycleViewAdapter.ViewHolder) holder).buttonDeleteDish.setOnClickListener(v -> {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(R.string.deleteDishMessage);
+            //builder.setMessage("Piatto aggiunto al carrello");
+            builder.setIcon(R.drawable.alert_circle_outline);
+
+            builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+
+                /*Recupero la position della riga su cui ho cliccato ed invoco tramite l'interfacci
+                il metodo onDeleteClick implentato nel fragment che ospita la RecycleVicew*/
                 if(position != RecyclerView.NO_POSITION){
-                    callManageMethod.onAddQuantityClick(position);
+                    callManageMethod.onDeleteClick(position);
                 }
-            }
+
+            });
+
+            builder.setNegativeButton(R.string.cancel, (dialog, which) ->{
+
+            });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         });
 
-        ((ViewHolder) holder).buttonRemoveQuantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(position != RecyclerView.NO_POSITION){
-                    callManageMethod.onRemoveQuantityClick(position);
-                }
-            }
-        });
+        if(MainActivity.getOrder().isConfirmed()){
+            ((ViewHolder) holder).buttonAddQuantity.setBackground(ContextCompat.getDrawable(context, R.drawable.plus_box_grey));
+            ((ViewHolder) holder).buttonRemoveQuantity.setBackground(ContextCompat.getDrawable(context, R.drawable.minus_box_outline_grey));
+            ((ViewHolder) holder).buttonDeleteDish.setBackground(ContextCompat.getDrawable(context, R.drawable.delete_grey));
+            ((ViewHolder) holder).buttonAddQuantity.setClickable(false);
+            ((ViewHolder) holder).buttonRemoveQuantity.setClickable(false);
+            ((ViewHolder) holder).buttonDeleteDish.setClickable(false);
 
-        ((SummaryRecycleViewAdapter.ViewHolder) holder).buttonDeleteDish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle(R.string.deleteDishMessage);
-                //builder.setMessage("Piatto aggiunto al carrello");
-                builder.setIcon(R.drawable.alert_circle_outline);
-                builder.setPositiveButton(R.string.ok, (dialog, which) -> {
-
-                    /*Recupero la position della riga su cui ho cliccato ed invoco tramite l'interfacci
-                    il metodo onDeleteClick implentato nel fragment che ospita la RecycleVicew*/
-                    if(position != RecyclerView.NO_POSITION){
-                        callManageMethod.onDeleteClick(position);
-                    }
-
-                });
-                builder.setNegativeButton(R.string.cancel, (dialog, which) ->{
-                    Toast.makeText(context,"Annullato",Toast.LENGTH_LONG).show();
-
-                });
-
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-        });
+        }else{
+            ((ViewHolder) holder).buttonAddQuantity.setBackground(ContextCompat.getDrawable(context, R.drawable.plus_box));
+            ((ViewHolder) holder).buttonRemoveQuantity.setBackground(ContextCompat.getDrawable(context, R.drawable.minus_box_outline));
+            ((ViewHolder) holder).buttonDeleteDish.setBackground(ContextCompat.getDrawable(context, R.drawable.delete));
+            ((ViewHolder) holder).buttonAddQuantity.setClickable(true);
+            ((ViewHolder) holder).buttonRemoveQuantity.setClickable(true);
+            ((ViewHolder) holder).buttonDeleteDish.setClickable(true);
+        }
     }
 
     @Override
@@ -145,9 +154,6 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
         private final Button buttonAddQuantity;
         private final Button buttonRemoveQuantity;
         private final Button buttonDeleteDish;
-        private final LinearLayout orderDetailsLinearLayout;
-        private final CardView row;
-        private final RecyclerView recycleView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -161,21 +167,10 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
             buttonAddQuantity = itemView.findViewById(R.id.summary_btn_add_quantity);
             buttonRemoveQuantity = itemView.findViewById(R.id.summary_btn_remove_quantity);
             buttonDeleteDish = itemView.findViewById(R.id.summary_btn_delete_dish);
-            orderDetailsLinearLayout = itemView.findViewById(R.id.orderDetails_linearlayout);
-            row = itemView.findViewById(R.id.cardview_list_order_dish);
-            recycleView = itemView.findViewById(R.id.summary_recycler_view);
         }
+    }
 
-        public Button getButtonAddQuantity() {
-            return buttonAddQuantity;
-        }
-
-        public Button getButtonRemoveQuantity() {
-            return buttonRemoveQuantity;
-        }
-
-        public Button getButtonDeleteDish() {
-            return buttonDeleteDish;
-        }
+    public void HideButtonsAfterConfirm() {
+        notifyDataSetChanged(); //need to call it for the child views to be re-created with buttons.
     }
 }

@@ -52,8 +52,8 @@
         android:label="@string/variations"
         tools:layout="@layout/fragment_variation" >
         <action
-            android:id="@+id/action_navigation_variation_to_navigation_menu"
-            app:destination="@id/navigation_menu" />
+            android:id="@+id/action_navigation_variation_to_dish_fragment"
+            app:destination="@id/dishesFragment" />
     </fragment>
 
 </navigation>
