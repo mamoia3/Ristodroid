@@ -6,6 +6,10 @@ import android.graphics.BitmapFactory;
 import android.text.SpannableString;
 import android.text.style.LeadingMarginSpan;
 import android.util.Base64;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -13,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import model.Ingredient;
+import model.Order;
 
 public class Utility {
     public static Bitmap byteToBitmap(byte[] blob) {

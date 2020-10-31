@@ -9,7 +9,7 @@ import controllers.Utility;
 public class OrderDetail {
     private static int COUNT = 0;
     private int id;
-    private Order order;
+    private int order;
     private Dish dish;
     private int quantity;
     private List<Variation> variationPlusList;
@@ -19,7 +19,7 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public OrderDetail(Order order, Dish dish, int quantity) {
+    public OrderDetail(int order, Dish dish, int quantity) {
         this.id = ++COUNT;
         this.order = order;
         this.dish = dish;
@@ -40,7 +40,7 @@ public class OrderDetail {
         return id;
     }
 
-    public Order getOrder() {
+    public int getOrder() {
         return order;
     }
 

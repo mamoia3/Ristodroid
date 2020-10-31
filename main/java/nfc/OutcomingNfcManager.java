@@ -39,7 +39,6 @@ public class OutcomingNfcManager implements NfcAdapter.CreateNdefMessageCallback
      * */
     public interface NfcActivity {
         String getOutcomingMessage();
-
         void signalResult();
     }
 }

@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import controllers.MainActivity;
+import model.Order;
 import model.OrderDetail;
 import nfc.SenderActivity;
 
@@ -120,7 +121,10 @@ public class SummaryFragment extends Fragment {
                         adapter.HideButtonsAfterConfirm();
                         this.confirmButton.setVisibility(View.INVISIBLE);
                         setSummaryBadge(navMenu);
-                        startActivity(new Intent(getContext(), SenderActivity.class));
+                        String json = Order.convertToJson(MainActivity.getOrder());
+                        Intent intent = new Intent(getContext(), SenderActivity.class);
+                        intent.putExtra("order", json);
+                        startActivity(intent);
                     });
                     builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
                     });

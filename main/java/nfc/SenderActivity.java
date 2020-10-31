@@ -3,6 +3,7 @@ package nfc;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,26 +11,29 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.ristodroid.R;
 
+import controllers.MainActivity;
+import model.Order;
+
 
 public class SenderActivity extends AppCompatActivity implements OutcomingNfcManager.NfcActivity {
 
     private TextView tvOutcomingMessage;
-    private EditText etOutcomingMessage;
-    private Button btnSetOutcomingMessage;
-
     private NfcAdapter nfcAdapter;
     private OutcomingNfcManager outcomingNfccallback;
+    private String order;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sender);
+        Intent intent = getIntent();
+        order = intent.getExtras().getString("order");
 
         if (!isNfcSupported()) {
             Toast.makeText(this, "Nfc is not supported on this device", Toast.LENGTH_SHORT).show();
             finish();
         }
-        
+
         if (!nfcAdapter.isEnabled()) {
             Toast.makeText(this, "NFC disabled on this device. Turn on to proceed", Toast.LENGTH_SHORT).show();
         }
@@ -44,9 +48,10 @@ public class SenderActivity extends AppCompatActivity implements OutcomingNfcMan
 
     private void initViews() {
         this.tvOutcomingMessage = findViewById(R.id.tv_out_message);
-        this.etOutcomingMessage = findViewById(R.id.et_message);
-        this.btnSetOutcomingMessage = findViewById(R.id.btn_set_out_message);
-        this.btnSetOutcomingMessage.setOnClickListener((v) -> setOutGoingMessage());
+        this.tvOutcomingMessage.setMovementMethod(new ScrollingMovementMethod());
+
+
+        setOutGoingMessage();
     }
 
     @Override
@@ -61,7 +66,7 @@ public class SenderActivity extends AppCompatActivity implements OutcomingNfcMan
     }
 
     private void setOutGoingMessage() {
-        String outMessage = this.etOutcomingMessage.getText().toString();
+        String outMessage = order;
         this.tvOutcomingMessage.setText(outMessage);
     }
 

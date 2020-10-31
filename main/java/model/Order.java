@@ -2,15 +2,14 @@ package model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
-import java.sql.Timestamp;
+import com.google.gson.Gson;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import exception.NegativeSeatException;
 
 public class Order implements Parcelable {
     private static int COUNT=0;
@@ -106,6 +105,12 @@ public class Order implements Parcelable {
         return id == order.id;
     }
 
+    public static String convertToJson(Order o)  {
+        Gson gson = new Gson();
+        String order = gson.toJson(o);
+        Log.d("json", order);
+        return order;
+    }
     @Override
     public int hashCode() {
         return Objects.hash(id);

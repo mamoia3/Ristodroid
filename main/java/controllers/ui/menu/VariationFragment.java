@@ -19,14 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ristodroid.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-import controllers.Dashboard;
 import controllers.MainActivity;
-import controllers.ui.summary.SummaryRecycleViewAdapter;
+import controllers.Utility;
 import model.Dish;
+import model.Order;
 import model.OrderDetail;
 import model.Variation;
 
@@ -104,7 +103,7 @@ public class VariationFragment extends Fragment {
 
 
         confirm.setOnClickListener(v -> {
-            OrderDetail orderDetail = new OrderDetail(MainActivity.getOrder(), dish, quantity);
+            OrderDetail orderDetail = new OrderDetail(MainActivity.getOrder().getId(), dish, quantity);
             orderDetail.setVariationMinusList(minusAdapter.getVariationsMinusOrder());
             orderDetail.setVariationPlusList(plusAdapter.getVariationsPlusOrder());
             addToOrder(orderDetail);
@@ -118,7 +117,6 @@ public class VariationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", dish.getCategory().getId());
                 bundle.putString("category", dish.getCategory().getName());
-
                 Navigation.findNavController(getView())
                         .navigate(R.id.action_navigation_variation_to_dish_fragment, bundle);
             });
