@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,12 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ristodroid.R;
 
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
 import controllers.MainActivity;
 import controllers.Utility;
+import model.Order;
 import model.OrderDetail;
 import model.Variation;
 
@@ -42,7 +46,7 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
 
-    public SummaryRecycleViewAdapter(List<OrderDetail> orderDetailsList, Context context){
+    public SummaryRecycleViewAdapter(List<OrderDetail> orderDetailsList,Context context){
         this.orderDetailsList = orderDetailsList;
         this.context = context;
     }
@@ -173,4 +177,5 @@ public class SummaryRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView
     public void HideButtonsAfterConfirm() {
         notifyDataSetChanged(); //need to call it for the child views to be re-created with buttons.
     }
+
 }

@@ -98,21 +98,6 @@
                 card_view:layout_constraintTop_toBottomOf="@+id/summary_text_minus_variations"
                 tools:text="€4.50" />
 
-            <!--  <ImageButton
-                android:id="@+id/summary_btn_add_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="6dp"
-                android:background="@android:color/white"
-                android:contentDescription="@string/addQuantity"
-                app:tint="@color/accent"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/summary_btn_remove_quantity"
-                card_view:layout_constraintTop_toBottomOf="@+id/summary_text_minus_variations"
-                card_view:srcCompat="@drawable/plus_box" />-->
-
             <TextView
                 android:id="@+id/summary_text_quantity_summary"
                 style="@style/price"
@@ -125,36 +110,6 @@
                 card_view:layout_constraintStart_toEndOf="@+id/summary_image_dish"
                 card_view:layout_constraintTop_toBottomOf="@+id/summary_text_minus_variations"
                 tools:text="1 pz" />
-
-            <!--     <ImageButton
-                android:id="@+id/summary_btn_remove_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="6dp"
-                android:background="@null"
-                android:contentDescription="@string/removeQuantity"
-                app:tint="@color/accent"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/summary_text_quantity_summary"
-                card_view:layout_constraintTop_toBottomOf="@+id/summary_text_minus_variations"
-                card_view:srcCompat="@drawable/minus_box_outline" />-->
-
-            <!--  <ImageButton
-                android:id="@+id/summary_btn_delete_dish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="4dp"
-                android:background="@null"
-                android:contentDescription="@string/deleteDish"
-                app:tint="@color/accent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/text_summary_dish_title"
-                card_view:layout_constraintTop_toTopOf="parent"
-
-                card_view:srcCompat="@drawable/delete" />-->
 
             <Button
                 android:id="@+id/summary_btn_delete_dish"

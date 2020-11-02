@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ristodroid.R;
 
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -22,14 +25,17 @@ import java.util.Locale;
 import controllers.Utility;
 import model.Dish;
 import model.Ingredient;
+import model.OrderDetail;
 
-public class DishRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DishRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
     private final List<Dish> dishes;
+    private final List<Dish> dishesListFull;
     private final Context context;
 
 
     public DishRecyclerViewAdapter(List<Dish> dishes, Context context) {
         this.dishes = dishes;
+        this.dishesListFull = new ArrayList<>(dishes);
         this.context = context;
     }
 
@@ -88,5 +94,44 @@ public class DishRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             dishesLinearLayout = itemView.findViewById(R.id.dishes_linearlayout);
         }
     }
+
+
+    /*
+     * Sezione per la gestione della ricerca
+     */
+    @Override
+    public Filter getFilter() {
+        return nameDishFilter;
+    }
+
+    private Filter nameDishFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Dish> filteredDishList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0){
+                filteredDishList.addAll(dishesListFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Dish dish : dishesListFull){
+                    if(dish.getName().toLowerCase().contains(filterPattern)){
+                        filteredDishList.add(dish);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredDishList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            dishes.clear();
+            dishes.addAll((List)results.values);
+            notifyDataSetChanged();
+        }
+    };
+
 
 }

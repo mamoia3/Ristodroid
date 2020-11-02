@@ -4,8 +4,12 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ristodroid.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -63,6 +68,16 @@ public class SummaryFragment extends Fragment {
 
             summaryRecyclerView.setHasFixedSize(true); //cardview hanno tutte le stesse dimensioni
 
+            summaryRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                    if (dy > 0)
+                        confirmButton.hide();
+                    else if (dy < 0)
+                        confirmButton.show();
+                }
+            });
+
             adapter.setOnItemClickListener(new SummaryRecycleViewAdapter.manageClickOnButtonCard() {
                 @Override
                 public void onDeleteClick(int position) {
@@ -83,6 +98,7 @@ public class SummaryFragment extends Fragment {
                     details.get(position).setQuantity(details.get(position).getQuantity() + 1);
                     adapter.notifyDataSetChanged();
                     setSummaryBadge(navMenu);
+                    Snackbar.make(root,R.string.addDishToOrder,Snackbar.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -102,7 +118,7 @@ public class SummaryFragment extends Fragment {
                             manageVisibilityOrderEmpty();
                         }
                     }
-
+                    Snackbar.make(root,R.string.removeDishToOrder,Snackbar.LENGTH_SHORT).show();
                     setSummaryBadge(navMenu);
                 }
             });
@@ -157,4 +173,5 @@ public class SummaryFragment extends Fragment {
             }
         }
     }
+
 }

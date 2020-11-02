@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/selected"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Impasto alla curcuma" />
