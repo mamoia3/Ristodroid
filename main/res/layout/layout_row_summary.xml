@@ -38,8 +38,8 @@
                 style="@style/dishTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
 
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="3dp"
                 android:paddingHorizontal="3dp"
                 card_view:layout_constraintBottom_toBottomOf="parent"

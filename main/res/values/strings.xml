@@ -41,6 +41,11 @@
     <string name="titleNoAddingDishCloseOrder">Order sent!</string>
     <string name="contentNoAddingDishCloseOrder">You can\'t add other dishes to this order.</string>
     <string name="NoDishFound">No dishes found</string>
+    <string name="SyncFailed">Synchronization failed, the last available menu will be displayed</string>
+    <string name="OrderDataRequestFailed">Error! Unable to connect to server.</string>
+    <string name="receiptAvailable">Receipt not available.</string>
+    <string name="total">TOTAL</string>
+
 
     <!-- SEZIONE NFC  -->
 

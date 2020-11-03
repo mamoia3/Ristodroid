@@ -3,13 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import controllers.Utility;
 
 public class OrderDetail {
-    private static int COUNT = 0;
-    private int id;
-    private int order;
+    private String id;
+    private String order;
     private Dish dish;
     private int quantity;
     private List<Variation> variationPlusList;
@@ -19,8 +19,8 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public OrderDetail(int order, Dish dish, int quantity) {
-        this.id = ++COUNT;
+    public OrderDetail(String order, Dish dish, int quantity) {
+        this.id = UUID.randomUUID().toString();;
         this.order = order;
         this.dish = dish;
         this.quantity = quantity;
@@ -36,11 +36,11 @@ public class OrderDetail {
         this.variationMinusList = variationMinusList;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public int getOrder() {
+    public String getOrder() {
         return order;
     }
 
@@ -100,4 +100,18 @@ public class OrderDetail {
         }
         return total;
     }
+
+    public static double getTotalReceipt (List<OrderDetail> list){
+        double total = 0;
+
+        for(int i = 0; i < list.size(); i++){
+
+            double priceItem = list.get(i).quantity * (
+                    list.get(i).getDish().getPrice() + getTotalPriceVariation(list.get(i)));
+
+            total = total + priceItem;
+        }
+        return total;
+    }
+
 }

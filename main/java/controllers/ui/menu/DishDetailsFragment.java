@@ -42,10 +42,7 @@ public class DishDetailsFragment extends Fragment {
     private ImageView imageView;
     private FloatingActionButton addButton;
     private int quantity;
-
     private Dish dish;
-
-
 
 
     @Override

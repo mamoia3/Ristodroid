@@ -7,13 +7,11 @@ public class Seat {
     private int id;
     private String name;
     private double price;
-    private List<Order> orders;
 
-    public Seat(int id, String name, double price, List<Order> orders) {
+    public Seat(int id, String name, double price) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.orders = orders;
     }
 
     public int getId() {
@@ -28,9 +26,6 @@ public class Seat {
         return price;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
 
     @Override
     public String toString() {
@@ -38,7 +33,6 @@ public class Seat {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", orders=" + orders +
                 '}';
     }
 

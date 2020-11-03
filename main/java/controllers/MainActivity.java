@@ -73,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
                 e.printStackTrace();
             }
         }, error -> {
-            Toast toast= Toast.makeText(getApplicationContext(),"Sincronizzazione menu fallita," +
-                    " verrà visualizzato l'ultimo menu disponibile",Toast.LENGTH_LONG);
+            Toast toast= Toast.makeText(getApplicationContext(),R.string.SyncFailed,Toast.LENGTH_LONG);
             toast.show();
         });
 

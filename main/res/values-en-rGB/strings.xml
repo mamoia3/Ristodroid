@@ -47,5 +47,9 @@
     <string name="removeDishToOrder">Dish removed from order.</string>
     <string name="search">Search</string>
     <string name="NoDishFound">No dishes found</string>
+    <string name="SyncFailed">Synchronization failed, the last available menu will be displayed</string>
+    <string name="OrderDataRequestFailed">Error! Unable to connect to server.</string>
+    <string name="receiptAvailable">Receipt not available.</string>
+    <string name="total">TOTAL</string>
 
 </resources>
