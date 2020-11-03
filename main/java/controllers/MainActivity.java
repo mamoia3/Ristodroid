@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.TreeMap;
 
 import model.Order;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String url = "https://www.sabersolutions.it/ristodroid/get.php";
+        String url = "https://www.sabersolutions.it/ristodroid/get.php?lang=" + Locale.getDefault().getLanguage();
 
         getJsonResponse(url);
         try {

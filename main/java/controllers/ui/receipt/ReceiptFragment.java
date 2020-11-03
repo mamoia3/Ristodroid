@@ -1,129 +1,85 @@
 package controllers.ui.receipt;
 
-import android.app.DownloadManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ristodroid.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.util.Currency;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-
 import controllers.MainActivity;
 import controllers.Utility;
-import controllers.ui.summary.SummaryRecycleViewAdapter;
-import model.Order;
 import model.OrderDetail;
 import model.Seat;
 
 public class ReceiptFragment extends Fragment {
 
-    private BottomNavigationView navMenu;
     private TextView emptyReceipt;
-    private CardView cardViewTotal, cardViewSeat;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_receipt, container, false);
-        TextView emptyReceipt = root.findViewById(R.id.text_receipt_not_available);
+        emptyReceipt = root.findViewById(R.id.text_receipt_not_available);
         View dashboardView = getActivity().findViewById(R.id.dashboardView);
-        navMenu= dashboardView.findViewById(R.id.nav_view);
+        BottomNavigationView navMenu = dashboardView.findViewById(R.id.nav_view);
         setSummaryBadge(navMenu);
 
-        String url = "https://www.sabersolutions.it/ristodroid/getOrder.php";
-        //getJsonOrder(url);
+        if(MainActivity.getOrder() != null){
 
-        MainActivity.getOrder().setSeat(new Seat(1, "Coperto cena",2.00));
-        MainActivity.getOrder().setSeatNumber(5);
-
-        if(MainActivity.getOrder().getSeat() != null && MainActivity.getOrder().getSeatNumber()!=0) {
-
-            //Order prova = MainActivity.getOrder();
-
-            emptyReceipt.setVisibility(View.GONE);
-            RecyclerView receiptRecyclerView = root.findViewById(R.id.receipt_recycler_view);
-            List<OrderDetail> details = MainActivity.getOrder().getOrderDetails();
-
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-            receiptRecyclerView.setLayoutManager(linearLayoutManager);
-
-            ReceiptRecycleViewAdapter adapter = new ReceiptRecycleViewAdapter(details, getContext());
-
-            receiptRecyclerView.setAdapter(adapter);
-
-            receiptRecyclerView.setHasFixedSize(true); //cardview hanno tutte le stesse dimensioni
-            showCardReceipt(root);
+            String url = "https://www.sabersolutions.it/ristodroid/getOrder.php?id_order=" + MainActivity.getOrder().getId();
+            getJsonOrder(url,root);
 
         }else{
-            emptyReceipt.setText(R.string.receiptAvailable);
-            emptyReceipt.setVisibility(View.VISIBLE);
+            showReceiptNotAvailable();
         }
         return root;
     }
 
-    public void getJsonOrder(String url){
+    private void getJsonOrder(String url, View view){
 
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null,response -> {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try{
-                JSONObject jsonOrderData = response.getJSONObject("id_order");
-                MainActivity.getOrder().setSeatNumber(jsonOrderData.getInt("seat_number"));
-                String type_seat = jsonOrderData.getJSONObject("seat").getString("name");
-                Double price_seat = jsonOrderData.getJSONObject("seat").getDouble("price");
-                int id_seat = jsonOrderData.getJSONObject("seat").getInt("id");
-                MainActivity.getOrder().setSeat(new Seat(id_seat,type_seat,price_seat));
+                JSONArray jsonOrderData = response.getJSONArray("order_information");
 
+                if(jsonOrderData.length()>0) {
+                    JSONObject jsonObjectOrderInformation = jsonOrderData.getJSONObject(0);
+                    MainActivity.getOrder().setSeatNumber(jsonObjectOrderInformation.getInt("seat"));
+
+                    int id_seat = jsonObjectOrderInformation.getInt("id");
+                    String type_seat = jsonObjectOrderInformation.getString("name");
+                    double price_seat = jsonObjectOrderInformation.getDouble("price");
+                    MainActivity.getOrder().setSeat(new Seat(id_seat, type_seat, price_seat));
+                }
+
+                onResponseFromServer(view);
 
             }catch(JSONException e){
                 e.printStackTrace();
             }
 
-
         }, error -> {
             Toast toast= Toast.makeText(getContext(),R.string.OrderDataRequestFailed,Toast.LENGTH_LONG);
             toast.show();
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("id_order",MainActivity.getOrder().getId());
+        });
 
-                return params;
-            }
-        };
-
-        Volley.newRequestQueue(getContext());
+        Volley.newRequestQueue(getContext()).add(stringRequest);
     }
 
 
@@ -139,9 +95,9 @@ public class ReceiptFragment extends Fragment {
     }
 
 
-    private void showCardReceipt(View root){
-        cardViewSeat = root.findViewById(R.id.cardview_seat);
-        cardViewTotal = root.findViewById(R.id.cardview_total);
+    private void showCardReceipt(View root) {
+        CardView cardViewSeat = root.findViewById(R.id.cardview_seat);
+        CardView cardViewTotal = root.findViewById(R.id.cardview_total);
         cardViewSeat.setVisibility(View.VISIBLE);
         cardViewTotal.setVisibility(View.VISIBLE);
 
@@ -149,7 +105,7 @@ public class ReceiptFragment extends Fragment {
         seatDescription.setText(MainActivity.getOrder().getSeat().getName());
 
         String quantitySeat = "x " + MainActivity.getOrder().getSeatNumber();
-        TextView seatQuantity= root.findViewById(R.id.receipt_text_quantity_seat);
+        TextView seatQuantity = root.findViewById(R.id.receipt_text_quantity_seat);
         seatQuantity.setText(quantitySeat);
 
         String euro = Currency.getInstance(Locale.GERMANY).getSymbol() + " ";
@@ -161,11 +117,36 @@ public class ReceiptFragment extends Fragment {
         totalDescription.setText(R.string.total);
 
         String totalPay = euro + Utility.priceToString(OrderDetail.getTotalReceipt(MainActivity.getOrder().getOrderDetails()) +
-                MainActivity.getOrder().getSeatNumber() * MainActivity.getOrder().getSeat().getPrice() );
+                MainActivity.getOrder().getSeatNumber() * MainActivity.getOrder().getSeat().getPrice());
         TextView totalPayText = root.findViewById(R.id.receipt_text_total_price);
         totalPayText.setText(totalPay);
-
     }
 
 
+    private void showReceiptNotAvailable(){
+        emptyReceipt.setText(R.string.receiptAvailable);
+        emptyReceipt.setVisibility(View.VISIBLE);
+    }
+
+
+    private void onResponseFromServer(View root){
+        if(MainActivity.getOrder().getSeatNumber()!=0 && MainActivity.getOrder().getSeat() != null) {
+
+            emptyReceipt.setVisibility(View.GONE);
+            RecyclerView receiptRecyclerView = root.findViewById(R.id.receipt_recycler_view);
+            List<OrderDetail> details = MainActivity.getOrder().getOrderDetails();
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            receiptRecyclerView.setLayoutManager(linearLayoutManager);
+
+            ReceiptRecycleViewAdapter adapter = new ReceiptRecycleViewAdapter(details, getContext());
+
+            receiptRecyclerView.setAdapter(adapter);
+
+            receiptRecyclerView.setHasFixedSize(true); //cardview hanno tutte le stesse dimensioni
+            showCardReceipt(root);
+        }else{
+            showReceiptNotAvailable();
+        }
+    }
 }

@@ -15,8 +15,20 @@ import java.util.UUID;
 public class Order implements Parcelable {
     private String id;
     private String time;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     private Table table;
     private Seat seat;
+    private int seatNumber;
+    private boolean confirmed;
+    private List<OrderDetail> orderDetails;
 
     public void setSeat(Seat seat) {
         this.seat = seat;
@@ -26,9 +38,7 @@ public class Order implements Parcelable {
         this.seatNumber = seatNumber;
     }
 
-    private int seatNumber;
-    private boolean confirmed;
-    private List<OrderDetail> orderDetails;
+
 
     public Order(Table table, Seat seat, int seatNumber) {
         this.id = UUID.randomUUID().toString();
