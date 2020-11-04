@@ -96,7 +96,7 @@ public class SqLiteDb extends SQLiteOpenHelper {
 
     private final static String QUERY_CREATETABLE_ORDER =
             "" + "CREATE TABLE " + RistodroidDBSchema.OrderTable.NAME + "(" +
-                    RistodroidDBSchema.OrderTable.Cols.ID + " VARCHAR(50) PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    RistodroidDBSchema.OrderTable.Cols.ID + " VARCHAR(50) PRIMARY KEY NOT NULL, " +
                     RistodroidDBSchema.OrderTable.Cols.TIME + " DATETIME NOT NULL, " +
                     RistodroidDBSchema.OrderTable.Cols.TABLE + " VARCHAR(4) NOT NULL, " +
                     RistodroidDBSchema.OrderTable.Cols.SEAT + " integer NOT NULL, " +
@@ -108,7 +108,7 @@ public class SqLiteDb extends SQLiteOpenHelper {
 
     private final static String QUERY_CREATETABLE_ORDER_DETAILS =
             "" + "CREATE TABLE " + RistodroidDBSchema.OrderDetailTable.NAME + "(" +
-                    RistodroidDBSchema.OrderDetailTable.Cols.ID + " VARCHAR(50) PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    RistodroidDBSchema.OrderDetailTable.Cols.ID + " VARCHAR(50) PRIMARY KEY NOT NULL, " +
                     RistodroidDBSchema.OrderDetailTable.Cols.ORDER + " VARCHAR(50) NOT NULL, " +
                     RistodroidDBSchema.OrderDetailTable.Cols.DISH + " integer NOT NULL, " +
                     RistodroidDBSchema.OrderDetailTable.Cols.QUANTITY + " integer NOT NULL, " +
