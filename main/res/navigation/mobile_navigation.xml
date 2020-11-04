@@ -53,7 +53,9 @@
         tools:layout="@layout/fragment_variation" >
         <action
             android:id="@+id/action_navigation_variation_to_dish_fragment"
-            app:destination="@id/dishesFragment" />
+            app:destination="@id/dishesFragment"
+            app:popUpTo="@id/navigation_menu"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>
