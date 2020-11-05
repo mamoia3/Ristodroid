@@ -68,5 +68,6 @@
         <item quantity="one">Allergenic</item>
         <item quantity="other">Allergenics</item>
     </plurals>
+    <string name="emptyReceipt">Receipt unavaible</string>
 
 </resources>

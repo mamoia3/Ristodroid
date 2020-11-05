@@ -25,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
+import controllers.Dashboard;
 import controllers.MainActivity;
 import controllers.Utility;
 import model.Dish;
@@ -106,25 +107,16 @@ public class VariationFragment extends Fragment {
             orderDetail.setVariationPlusList(plusAdapter.getVariationsPlusOrder());
             addToOrder(orderDetail);
 
-            Snackbar.make(v, R.string.addDishToOrder, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(navMenu, R.string.addDishToOrder, Snackbar.LENGTH_LONG).setAnchorView(navMenu).show();
             setSummaryBadge(navMenu);
 
             Bundle bundle = new Bundle();
             bundle.putInt("id", dish.getCategory().getId());
             bundle.putString("category", dish.getCategory().getName());
 
-            Handler mHandler = new Handler();
-            mHandler.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
 
                     Navigation.findNavController(getView())
                             .navigate(R.id.action_navigation_variation_to_dish_fragment, bundle);
-                }
-
-            }, 1000L);
-
 
 
         });

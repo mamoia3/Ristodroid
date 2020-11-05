@@ -54,5 +54,6 @@
     <string name="label_your_message">Order completed. Sending ...</string>
     <string name="label_NFC_SEND">Order completed. Sending ...</string>
     <string name="nfc_sender_activity">Send order</string>
+    <string name="emptyReceipt">Receipt unavailable</string>
 
 </resources>

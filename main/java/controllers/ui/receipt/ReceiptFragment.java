@@ -61,7 +61,7 @@ public class ReceiptFragment extends Fragment {
 
                 if(jsonOrderData.length()>0) {
                     JSONObject jsonObjectOrderInformation = jsonOrderData.getJSONObject(0);
-                    MainActivity.getOrder().setSeatNumber(jsonObjectOrderInformation.getInt("seat"));
+                    MainActivity.getOrder().setSeatNumber(jsonObjectOrderInformation.getInt("seatnumber"));
 
                     int id_seat = jsonObjectOrderInformation.getInt("id");
                     String type_seat = jsonObjectOrderInformation.getString("name");
@@ -125,7 +125,6 @@ public class ReceiptFragment extends Fragment {
 
 
     private void showReceiptNotAvailable(){
-        emptyReceipt.setText(R.string.receiptAvailable);
         emptyReceipt.setVisibility(View.VISIBLE);
     }
 
