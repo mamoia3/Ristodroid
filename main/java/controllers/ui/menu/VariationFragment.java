@@ -3,6 +3,7 @@ package controllers.ui.menu;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -105,14 +106,25 @@ public class VariationFragment extends Fragment {
             orderDetail.setVariationPlusList(plusAdapter.getVariationsPlusOrder());
             addToOrder(orderDetail);
 
-            Snackbar.make(v, R.string.addDishToOrder, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(v, R.string.addDishToOrder, Snackbar.LENGTH_LONG).show();
             setSummaryBadge(navMenu);
 
             Bundle bundle = new Bundle();
             bundle.putInt("id", dish.getCategory().getId());
             bundle.putString("category", dish.getCategory().getName());
-            Navigation.findNavController(getView())
-                    .navigate(R.id.action_navigation_variation_to_dish_fragment, bundle);
+
+            Handler mHandler = new Handler();
+            mHandler.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    Navigation.findNavController(getView())
+                            .navigate(R.id.action_navigation_variation_to_dish_fragment, bundle);
+                }
+
+            }, 1000L);
+
 
 
         });

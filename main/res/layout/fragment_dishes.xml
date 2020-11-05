@@ -7,12 +7,16 @@
 
     <TextView
         android:id="@+id/text_empty_category"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:fontFamily="@font/open_sans_semibold"
+        android:padding="15dp"
         android:text="@string/emptyCategory"
-        style="@style/contentDetails"
         android:textAlignment="center"
-        android:padding="15dp"/>
+        android:textAllCaps="true"
+        android:textColor="@color/secondary_text"
+        android:textSize="22sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

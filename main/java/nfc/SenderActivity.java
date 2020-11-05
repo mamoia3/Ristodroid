@@ -18,6 +18,7 @@ import model.Order;
 public class SenderActivity extends AppCompatActivity implements OutcomingNfcManager.NfcActivity {
 
     private TextView tvOutcomingMessage;
+    private TextView provaMSG;
     private NfcAdapter nfcAdapter;
     private OutcomingNfcManager outcomingNfccallback;
     private String order;
@@ -47,10 +48,10 @@ public class SenderActivity extends AppCompatActivity implements OutcomingNfcMan
     }
 
     private void initViews() {
-        this.tvOutcomingMessage = findViewById(R.id.tv_out_message);
-        this.tvOutcomingMessage.setMovementMethod(new ScrollingMovementMethod());
-
-
+        this.tvOutcomingMessage = findViewById(R.id.tv_out_label);
+        this.tvOutcomingMessage.setText(R.string.label_NFC_SEND);
+        this.provaMSG = findViewById(R.id.tv_out_message);
+        this.provaMSG.setMovementMethod(new ScrollingMovementMethod());
         setOutGoingMessage();
     }
 
@@ -67,7 +68,7 @@ public class SenderActivity extends AppCompatActivity implements OutcomingNfcMan
 
     private void setOutGoingMessage() {
         String outMessage = order;
-        this.tvOutcomingMessage.setText(outMessage);
+        //this.provaMSG.setText(outMessage);
     }
 
     @Override
