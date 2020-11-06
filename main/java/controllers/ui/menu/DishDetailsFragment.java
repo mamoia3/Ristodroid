@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ristodroid.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -36,7 +37,7 @@ import model.Variation;
 
 
 public class DishDetailsFragment extends Fragment {
-
+    private BottomNavigationView navMenu;
     private TextView titleDish;
     private TextView descriptionDish;
     private TextView priceDish;
@@ -66,6 +67,8 @@ public class DishDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_dish_details, container, false);
+        View dashboardView = getActivity().findViewById(R.id.dashboardView);
+        navMenu = dashboardView.findViewById(R.id.nav_view);
 
         String euro = Currency.getInstance(Locale.GERMANY).getSymbol() + " ";
 
@@ -140,38 +143,22 @@ public class DishDetailsFragment extends Fragment {
         builder.setPositiveButton(R.string.ok, (dialog, which) -> {
             quantity = numberPicker.getValue();
 
-
-           if(Variation.getVAriationByCategory(getContext(), dish.getCategory().getId()).size()>0){
-               Bundle bundle = new Bundle();
+            if(Variation.getVAriationByCategory(getContext(), dish.getCategory().getId()).size()>0){
                final String key_dish_bundle = "KEY_DISH_BUNDLE";
+               Bundle bundle = new Bundle();
                bundle.putParcelable(key_dish_bundle, dish);
                bundle.putInt("QUANTITY", quantity);
                Navigation.findNavController(getView())
                        .navigate(R.id.action_navigation_dish_details_to_navigation_variation, bundle);
-           }/*else {
+           }else {
                OrderDetail orderDetail = new OrderDetail(MainActivity.getOrder().getId(), dish, quantity);
-               //addToOrder(orderDetail);
+               MainActivity.getOrder().addToOrder(orderDetail);
 
-              /* Snackbar.make(v, R.string.addDishToOrder, Snackbar.LENGTH_LONG).show();
-               setSummaryBadge(navMenu);*/
-
-               Bundle bundle = new Bundle();
-               bundle.putInt("id", dish.getCategory().getId());
-               bundle.putString("category", dish.getCategory().getName());
-
-              /* Handler mHandler = new Handler();
-               mHandler.postDelayed(new Runnable() {
-
-                   @Override
-                   public void run() {
-
-                       Navigation.findNavController(getView())
-                               .navigate(R.id.action_navigation_variation_to_dish_fragment, bundle);
-                   }
-
-               }, 1000L);*/
-           //}
-           });
+               Snackbar.make(navMenu, R.string.addDishToOrder, Snackbar.LENGTH_LONG).setAnchorView(navMenu).show();
+               Utility.setSummaryBadge(navMenu);
+               Navigation.findNavController(getView()).navigateUp();
+            }
+        });
 
         builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
 

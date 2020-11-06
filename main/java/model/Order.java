@@ -167,4 +167,27 @@ public class Order implements Parcelable {
         dest.writeInt(seatNumber);
         dest.writeList(orderDetails);
     }
+
+    public void addToOrder(OrderDetail orderDetail) {
+        boolean findDish = false;
+
+        for (int i = 0; i < MainActivity.getOrder().getOrderDetails().size(); i++) {
+            if (MainActivity.getOrder().getOrderDetails().get(i).getDish().equals(orderDetail.getDish())) {
+
+                boolean dishSameVariations = MainActivity.getOrder().getOrderDetails().get(i).getVariationPlusList().equals(orderDetail.getVariationPlusList())
+                        && MainActivity.getOrder().getOrderDetails().get(i).getVariationMinusList().equals(orderDetail.getVariationMinusList());
+                if (dishSameVariations) {
+                    MainActivity.getOrder().getOrderDetails().get(i).setQuantity(MainActivity.getOrder().getOrderDetails().get(i).getQuantity() + orderDetail.getQuantity());
+                    findDish = true;
+                    break;
+                }
+            }
+        }
+
+        if (!findDish) {
+            MainActivity.getOrder().getOrderDetails().add(orderDetail);
+        }
+    }
+
+
 }

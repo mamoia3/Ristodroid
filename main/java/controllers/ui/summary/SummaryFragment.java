@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 import controllers.MainActivity;
+import controllers.Utility;
 import model.Order;
 import model.OrderDetail;
 import nfc.SenderActivity;
@@ -82,7 +83,7 @@ public class SummaryFragment extends Fragment {
                     adapter.notifyItemRemoved(position);
                     adapter.notifyItemRangeChanged(position,details.size());
 
-                    setSummaryBadge(navMenu);
+                    Utility.setSummaryBadge(navMenu);
 
                     if(details.size() == 0){
                         manageVisibilityOrderEmpty();
@@ -93,7 +94,7 @@ public class SummaryFragment extends Fragment {
                 public void onAddQuantityClick(int position) {
                     details.get(position).setQuantity(details.get(position).getQuantity() + 1);
                     adapter.notifyDataSetChanged();
-                    setSummaryBadge(navMenu);
+                    Utility.setSummaryBadge(navMenu);
                     Snackbar.make(root,R.string.addDishToOrder,Snackbar.LENGTH_SHORT).show();
                 }
 
@@ -115,7 +116,7 @@ public class SummaryFragment extends Fragment {
                         }
                     }
                     Snackbar.make(root,R.string.removeDishToOrder,Snackbar.LENGTH_SHORT).show();
-                    setSummaryBadge(navMenu);
+                    Utility.setSummaryBadge(navMenu);
                 }
             });
 
@@ -132,7 +133,7 @@ public class SummaryFragment extends Fragment {
                         //da aggiornare tutti i button rendendoli non visibili
                         adapter.HideButtonsAfterConfirm();
                         this.confirmButton.setVisibility(View.INVISIBLE);
-                        setSummaryBadge(navMenu);
+                        Utility.setSummaryBadge(navMenu);
 
 
 
@@ -162,16 +163,4 @@ public class SummaryFragment extends Fragment {
         emptySummary.setVisibility(View.VISIBLE);
         confirmButton.setVisibility(View.GONE);
     }
-
-    protected void setSummaryBadge (BottomNavigationView navMenu) {
-        boolean orderNotNull = MainActivity.getOrder()!=null;
-        if(orderNotNull) {
-            if((MainActivity.getOrder().getOrderDetails().size() == 0) ||(MainActivity.getOrder().isConfirmed())){
-                navMenu.removeBadge(R.id.navigation_summary);
-            }else {
-                navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
-            }
-        }
-    }
-
 }

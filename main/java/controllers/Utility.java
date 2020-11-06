@@ -8,6 +8,8 @@ import android.text.style.LeadingMarginSpan;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.ristodroid.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 
 import model.Ingredient;
 import model.Order;
+import model.OrderDetail;
 
 public class Utility {
     public static Bitmap byteToBitmap(byte[] blob) {
@@ -42,5 +45,16 @@ public class Utility {
         SpannableString result=new SpannableString(text);
         result.setSpan(new LeadingMarginSpan.Standard(marginFirstLine, marginNextLines),0,text.length(),0);
         return result;
+    }
+
+    public static void setSummaryBadge(BottomNavigationView navMenu) {
+        boolean orderNotNull = MainActivity.getOrder() != null;
+        if (orderNotNull) {
+            if ((MainActivity.getOrder().getOrderDetails().size() == 0) || (MainActivity.getOrder().isConfirmed())) {
+                navMenu.removeBadge(R.id.navigation_summary);
+            } else {
+                navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
+            }
+        }
     }
 }

@@ -39,7 +39,7 @@ public class ReceiptFragment extends Fragment {
         emptyReceipt = root.findViewById(R.id.text_receipt_not_available);
         View dashboardView = getActivity().findViewById(R.id.dashboardView);
         BottomNavigationView navMenu = dashboardView.findViewById(R.id.nav_view);
-        setSummaryBadge(navMenu);
+        Utility.setSummaryBadge(navMenu);
 
         if(MainActivity.getOrder() != null){
 
@@ -81,18 +81,6 @@ public class ReceiptFragment extends Fragment {
         });
 
         Volley.newRequestQueue(getContext()).add(stringRequest);
-    }
-
-
-    protected void setSummaryBadge (BottomNavigationView navMenu) {
-        boolean orderNotNull = MainActivity.getOrder()!=null;
-        if(orderNotNull) {
-            if((MainActivity.getOrder().getOrderDetails().size() == 0) ||(MainActivity.getOrder().isConfirmed())){
-                navMenu.removeBadge(R.id.navigation_summary);
-            }else {
-                navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
-            }
-        }
     }
 
 

@@ -55,18 +55,7 @@ public class Dashboard extends AppCompatActivity  {
         NavigationUI.setupWithNavController(navView, navController);
 
         navMenu= this.findViewById(R.id.nav_view);
-        setSummaryBadge(navMenu);
-    }
-
-    protected void setSummaryBadge (BottomNavigationView navMenu) {
-        boolean orderNotNull = MainActivity.getOrder()!=null;
-        if(orderNotNull) {
-            if((MainActivity.getOrder().getOrderDetails().size() == 0) ||(MainActivity.getOrder().isConfirmed())){
-                navMenu.removeBadge(R.id.navigation_summary);
-            }else {
-                navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
-            }
-        }
+        Utility.setSummaryBadge(navMenu);
     }
 
 }

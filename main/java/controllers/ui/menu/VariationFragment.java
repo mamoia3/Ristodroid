@@ -105,10 +105,10 @@ public class VariationFragment extends Fragment {
             OrderDetail orderDetail = new OrderDetail(MainActivity.getOrder().getId(), dish, quantity);
             orderDetail.setVariationMinusList(minusAdapter.getVariationsMinusOrder());
             orderDetail.setVariationPlusList(plusAdapter.getVariationsPlusOrder());
-            addToOrder(orderDetail);
+            MainActivity.getOrder().addToOrder(orderDetail);
 
             Snackbar.make(navMenu, R.string.addDishToOrder, Snackbar.LENGTH_LONG).setAnchorView(navMenu).show();
-            setSummaryBadge(navMenu);
+            Utility.setSummaryBadge(navMenu);
 
             Bundle bundle = new Bundle();
             bundle.putInt("id", dish.getCategory().getId());
@@ -119,37 +119,4 @@ public class VariationFragment extends Fragment {
 
         return root;
     }
-
-    protected void setSummaryBadge(BottomNavigationView navMenu) {
-        boolean orderNotNull = MainActivity.getOrder() != null;
-        if (orderNotNull) {
-            if ((MainActivity.getOrder().getOrderDetails().size() == 0) || (MainActivity.getOrder().isConfirmed())) {
-                navMenu.removeBadge(R.id.navigation_summary);
-            } else {
-                navMenu.getOrCreateBadge(R.id.navigation_summary).setNumber(OrderDetail.getTotalQuantity(MainActivity.getOrder().getOrderDetails()));
-            }
-        }
-    }
-
-    private void addToOrder(OrderDetail orderDetail) {
-        boolean findDish = false;
-
-        for (int i = 0; i < MainActivity.getOrder().getOrderDetails().size(); i++) {
-            if (MainActivity.getOrder().getOrderDetails().get(i).getDish().equals(orderDetail.getDish())) {
-
-                boolean dishSameVariations = MainActivity.getOrder().getOrderDetails().get(i).getVariationPlusList().equals(orderDetail.getVariationPlusList())
-                        && MainActivity.getOrder().getOrderDetails().get(i).getVariationMinusList().equals(orderDetail.getVariationMinusList());
-                if (dishSameVariations) {
-                    MainActivity.getOrder().getOrderDetails().get(i).setQuantity(MainActivity.getOrder().getOrderDetails().get(i).getQuantity() + orderDetail.getQuantity());
-                    findDish = true;
-                    break;
-                }
-            }
-        }
-
-        if (!findDish) {
-            MainActivity.getOrder().getOrderDetails().add(orderDetail);
-        }
-    }
-
 }
