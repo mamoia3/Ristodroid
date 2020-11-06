@@ -1,6 +1,4 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/coordinatorLayout2"
     android:layout_width="match_parent"
@@ -43,7 +41,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/summary_recycler_view"
-            app:layout_anchor="@id/button_CloseOrder"
-            />
+            app:layout_anchor="@id/button_CloseOrder" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
