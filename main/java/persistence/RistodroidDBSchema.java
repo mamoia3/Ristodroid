@@ -102,4 +102,13 @@ public class RistodroidDBSchema {
         }
     }
 
+    public static final class JsonOrderTable {
+        public static final String NAME = "jsonorder";
+
+        public  static final class Cols {
+            public static final String ID = "id";
+            public static final String JSON = "json";
+        }
+    }
+
 }

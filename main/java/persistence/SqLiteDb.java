@@ -100,6 +100,11 @@ public class SqLiteDb extends SQLiteOpenHelper {
                     RistodroidDBSchema.VariationTable.Cols.NAME + " VARCHAR(30) NOT NULL, " +
                     RistodroidDBSchema.VariationTable.Cols.PRICE + " DECIMAL(10, 2) NOT NULL );";
 
+    private final static String QUERY_CREATETABLE_JSONORDER =
+            "" + "CREATE TABLE " + RistodroidDBSchema.JsonOrderTable.NAME + "(" +
+                    RistodroidDBSchema.JsonOrderTable.Cols.ID + " VARCHAR(50) PRIMARY KEY NOT NULL, " +
+                    RistodroidDBSchema.JsonOrderTable.Cols.JSON+ " LONGTEXT NOT NULL );";
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(QUERY_CREATETABLE_ALLERGENIC);
@@ -112,6 +117,7 @@ public class SqLiteDb extends SQLiteOpenHelper {
         db.execSQL(QUERY_CREATETABLE_AVAILABILITY);
         db.execSQL(QUERY_CREATETABLE_VARIATION);
         db.execSQL(QUERY_CREATETABLE_CATEGORYVARIATION);
+        db.execSQL(QUERY_CREATETABLE_JSONORDER);
     }
 
     private static String dropTable (String table_name) {
@@ -130,6 +136,7 @@ public class SqLiteDb extends SQLiteOpenHelper {
         db.execSQL(dropTable(RistodroidDBSchema.AvailabilityTable.NAME));
         db.execSQL(dropTable(RistodroidDBSchema.VariationTable.NAME));
         db.execSQL(dropTable(RistodroidDBSchema.CategoryVariationTable.NAME));
+        db.execSQL(dropTable(RistodroidDBSchema.JsonOrderTable.NAME));
         onCreate(db);
     }
 
