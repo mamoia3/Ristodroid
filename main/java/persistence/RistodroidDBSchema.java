@@ -92,47 +92,6 @@ public class RistodroidDBSchema {
         }
     }
 
-    public static final class OrderTable {
-        public static final String NAME = "orders";
-
-        public static final class Cols {
-            public static final String ID = "id";
-            public static final String TIME = "time";
-            public static final String TABLE = "tables";
-            public static final String SEAT = "seat";
-            public static final String SEAT_NUMBER = "seat_number";
-        }
-    }
-
-    public static final class OrderDetailTable {
-        public static final String NAME = "orderdetail";
-
-        public static final class Cols {
-            public static final String ID = "id";
-            public static final String ORDER = "orders";
-            public static final String DISH = "dish";
-            public static final String QUANTITY = "quantity";
-        }
-    }
-
-    public static final class SeatTable {
-        public static final String NAME = "seat";
-
-        public static final class Cols {
-            public static final String ID = "id";
-            public static final String NAME = "name";
-            public static final String PRICE = "price";
-        }
-    }
-
-    public static final class TableTable {
-        public static final String NAME = "tables";
-
-        public static final class Cols {
-            public static final String ID = "id";
-        }
-    }
-
     public static final class VariationTable {
         public static final String NAME = "variation";
 
@@ -143,12 +102,4 @@ public class RistodroidDBSchema {
         }
     }
 
-    public static final class VariationDishOrderTable {
-        public static final String NAME = "variationdishorder";
-
-        public static final class Cols {
-            public static final String VARIATION = "variation";
-            public static final String ORDERDETAILS = "orderdetails";
-        }
-    }
 }

@@ -25,8 +25,7 @@ public class Dish implements Parcelable {
     private Category category;
     private List<Ingredient> ingredientDishes;
     private List<Allergenic> allergenicDishes;
-    //private List<OrderDetail> orderDetails;
-    //private List<Availability> availabilities;
+
 
     public Dish(int id, String name, String description, double price, byte[] photo, Category category,
                 List<Ingredient> ingredientDishes, List<Allergenic> allergenicDishes) {
@@ -38,8 +37,6 @@ public class Dish implements Parcelable {
         this.category = category;
         this.ingredientDishes = ingredientDishes;
         this.allergenicDishes = allergenicDishes;
-        //this.orderDetails = orderDetails;
-        //this.availabilities = availabilities;
     }
 
 
@@ -97,14 +94,6 @@ public class Dish implements Parcelable {
     public List<Allergenic> getAllergenicDishes() {
         return allergenicDishes;
     }
-
-    /*public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }*/
-
-    /*public List<Availability> getAvailabilities() {
-        return availabilities;
-    }*/
 
     public static ArrayList<Dish> getDishes(Context context, int idCategoryRequest) {
 

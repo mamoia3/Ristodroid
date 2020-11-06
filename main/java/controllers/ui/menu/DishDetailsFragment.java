@@ -8,15 +8,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ristodroid.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 
 import java.util.Currency;
@@ -28,6 +31,8 @@ import model.Allergenic;
 import model.Dish;
 import model.Ingredient;
 import model.Order;
+import model.OrderDetail;
+import model.Variation;
 
 
 public class DishDetailsFragment extends Fragment {
@@ -76,17 +81,26 @@ public class DishDetailsFragment extends Fragment {
         priceDish = root.findViewById(R.id.text_price_dish_details);
         priceDish.setText(euro + Utility.priceToString(dish.getPrice()));
 
-        int numIngredient = dish.getIngredientDishes().size();
         Resources pluralResource = getResources();
+        int numIngredient = dish.getIngredientDishes().size();
         titleIngredient= root.findViewById(R.id.text_title_ingredient_list);
-        titleIngredient.setText(pluralResource.getQuantityString(R.plurals.numberOfIngredients,numIngredient));
+
+        if (numIngredient > 0) {
+            titleIngredient.setText(pluralResource.getQuantityString(R.plurals.numberOfIngredients,numIngredient));
+        }else{
+            titleIngredient.setVisibility(View.GONE);
+        }
 
         ingredientDish = root.findViewById(R.id.text_list_ingrediets_dish_details);
         ingredientDish.setText(Ingredient.getIngredientsToString(dish.getIngredientDishes()));
 
         int numAllergenic = dish.getAllergenicDishes().size();
-        titleAllergenic= root.findViewById(R.id.text_title_allergenic_list);
-        titleAllergenic.setText(pluralResource.getQuantityString(R.plurals.numberOfAllergenic,numAllergenic));
+        titleAllergenic = root.findViewById(R.id.text_title_allergenic_list);
+        if(numAllergenic>0) {
+            titleAllergenic.setText(pluralResource.getQuantityString(R.plurals.numberOfAllergenic, numAllergenic));
+        }else{
+            titleAllergenic.setVisibility(View.GONE);
+        }
 
         allergenicDish = root.findViewById(R.id.text_list_allergenic_dish_details);
         allergenicDish.setText(Allergenic.getAllergenicsToString(dish.getAllergenicDishes()));
@@ -125,13 +139,39 @@ public class DishDetailsFragment extends Fragment {
 
         builder.setPositiveButton(R.string.ok, (dialog, which) -> {
             quantity = numberPicker.getValue();
-            Bundle bundle = new Bundle();
-            final String key_dish_bundle = "KEY_DISH_BUNDLE";
-            bundle.putParcelable(key_dish_bundle, dish);
-            bundle.putInt("QUANTITY", quantity);
-            Navigation.findNavController(getView())
-                    .navigate(R.id.action_navigation_dish_details_to_navigation_variation, bundle);
-        });
+
+
+           if(Variation.getVAriationByCategory(getContext(), dish.getCategory().getId()).size()>0){
+               Bundle bundle = new Bundle();
+               final String key_dish_bundle = "KEY_DISH_BUNDLE";
+               bundle.putParcelable(key_dish_bundle, dish);
+               bundle.putInt("QUANTITY", quantity);
+               Navigation.findNavController(getView())
+                       .navigate(R.id.action_navigation_dish_details_to_navigation_variation, bundle);
+           }/*else {
+               OrderDetail orderDetail = new OrderDetail(MainActivity.getOrder().getId(), dish, quantity);
+               //addToOrder(orderDetail);
+
+              /* Snackbar.make(v, R.string.addDishToOrder, Snackbar.LENGTH_LONG).show();
+               setSummaryBadge(navMenu);*/
+
+               Bundle bundle = new Bundle();
+               bundle.putInt("id", dish.getCategory().getId());
+               bundle.putString("category", dish.getCategory().getName());
+
+              /* Handler mHandler = new Handler();
+               mHandler.postDelayed(new Runnable() {
+
+                   @Override
+                   public void run() {
+
+                       Navigation.findNavController(getView())
+                               .navigate(R.id.action_navigation_variation_to_dish_fragment, bundle);
+                   }
+
+               }, 1000L);*/
+           //}
+           });
 
         builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
 

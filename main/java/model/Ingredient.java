@@ -1,12 +1,15 @@
 package model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import controllers.Utility;
 
-public class Ingredient {
+public class Ingredient implements Parcelable {
     private int id;
     private String name;
 
@@ -15,6 +18,23 @@ public class Ingredient {
         this.id = id;
         this.name = name;
     }
+
+    protected Ingredient(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+    }
+
+    public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
+        @Override
+        public Ingredient createFromParcel(Parcel in) {
+            return new Ingredient(in);
+        }
+
+        @Override
+        public Ingredient[] newArray(int size) {
+            return new Ingredient[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -51,5 +71,16 @@ public class Ingredient {
             list.add(ingredients.get(i).getName());
         }
         return Utility.listToStringWithDelimiter(list, ", ");
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
     }
 }

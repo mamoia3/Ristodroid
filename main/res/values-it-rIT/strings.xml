@@ -55,5 +55,7 @@
     <string name="label_your_message">Ordine completato. Invio in corso...</string>
     <string name="label_NFC_SEND">Ordine completato. Invio in corso...</string>
     <string name="nfc_sender_activity">Invio ordine</string>
+    <string name="nfc_disabled">NFC disabilitato su questo dispositivo. Abilitalo per continuare.</string>
+    <string name="nfc_not_supported">NFC non è supportato su questo dispositivo</string>
 
 </resources>

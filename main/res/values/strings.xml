@@ -55,6 +55,8 @@
     <string name="title_btn_set">Set Message</string>
     <string name="search">Search</string>
     <string name="nfc_sender_activity">Send order</string>
+    <string name="nfc_disabled">NFC disabled on this device. Turn on to proceed</string>
+    <string name="nfc_not_supported">NFC is not supported on this device</string>
 
 
     <!--

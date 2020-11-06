@@ -23,7 +23,7 @@ import java.util.TreeMap;
 import model.Order;
 import persistence.LoadJson;
 
-public class MainActivity extends AppCompatActivity implements Iterable<String> {
+public class MainActivity extends AppCompatActivity {
     private static Order order;
 
     @Override
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
         String url = "https://www.sabersolutions.it/ristodroid/get.php?lang=" + Locale.getDefault().getLanguage();
         getJsonResponse(url);
         try {
-            Thread.sleep(1000L);
+            Thread.sleep(2000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -93,12 +93,5 @@ public class MainActivity extends AppCompatActivity implements Iterable<String> 
     protected void onStop() {
         super.onStop();
         finish();
-    }
-
-
-    @NonNull
-    @Override
-    public Iterator<String> iterator() {
-        return new TreeMap<String, JSONArray>().keySet().iterator();
     }
 }

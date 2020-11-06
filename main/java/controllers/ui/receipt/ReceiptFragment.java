@@ -43,8 +43,8 @@ public class ReceiptFragment extends Fragment {
 
         if(MainActivity.getOrder() != null){
 
-            String url = "https://www.sabersolutions.it/ristodroid/getOrder.php?id_order=" + MainActivity.getOrder().getId() +
-                    "&lang=" + Locale.getDefault().getLanguage();
+            String url = "https://www.sabersolutions.it/ristodroid/getOrder.php?id_order=" +MainActivity.getOrder().getId()
+                    +"&lang=" + Locale.getDefault().getLanguage();
             getJsonOrder(url,root);
 
         }else{
@@ -61,7 +61,7 @@ public class ReceiptFragment extends Fragment {
 
                 if(jsonOrderData.length()>0) {
                     JSONObject jsonObjectOrderInformation = jsonOrderData.getJSONObject(0);
-                    MainActivity.getOrder().setSeatNumber(jsonObjectOrderInformation.getInt("seat"));
+                    MainActivity.getOrder().setSeatNumber(jsonObjectOrderInformation.getInt("seatnumber"));
 
                     int id_seat = jsonObjectOrderInformation.getInt("id");
                     String type_seat = jsonObjectOrderInformation.getString("name");

@@ -69,6 +69,35 @@ public class Variation {
         return variations;
     }
 
+   public static ArrayList<Variation> getVAriationByCategory(Context context, int category){
+        ArrayList<Variation> variations = new ArrayList<>();
+        SQLiteDatabase db = new SqLiteDb(context).getReadableDatabase();
+
+        String queryVariationCategoryTable = "SELECT " + RistodroidDBSchema.CategoryVariationTable.Cols.VARIATION
+                + " FROM " + RistodroidDBSchema.VariationTable.NAME + " INNER JOIN "
+                + RistodroidDBSchema.CategoryVariationTable.NAME + " ON "
+                + RistodroidDBSchema.CategoryVariationTable.Cols.VARIATION + " = "
+                + RistodroidDBSchema.VariationTable.Cols.ID
+                + " WHERE " + RistodroidDBSchema.CategoryVariationTable.Cols.CATEGORY + "=" + category;
+
+       Cursor variationCategoryCursor = db.rawQuery(queryVariationCategoryTable, null);
+
+       while (variationCategoryCursor.moveToNext()) {
+           int id = variationCategoryCursor.getInt(variationCategoryCursor.getColumnIndex(RistodroidDBSchema.CategoryVariationTable.Cols.VARIATION));
+           Variation myVariation = new Variation(id, null,0,null, null);
+           variations.add(myVariation);
+       }
+
+       variationCategoryCursor.close();
+
+       return variations;
+   }
+
+
+
+
+
+
     public int getId() {
         return id;
     }

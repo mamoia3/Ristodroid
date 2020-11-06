@@ -133,6 +133,10 @@ public class SummaryFragment extends Fragment {
                         adapter.HideButtonsAfterConfirm();
                         this.confirmButton.setVisibility(View.INVISIBLE);
                         setSummaryBadge(navMenu);
+
+
+
+
                         String json = Order.convertToJson(MainActivity.getOrder());
                         Intent intent = new Intent(getContext(), SenderActivity.class);
                         intent.putExtra("order", json);

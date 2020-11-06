@@ -1,12 +1,15 @@
 package model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import controllers.Utility;
 
-public class Allergenic {
+public class Allergenic implements Parcelable {
     private int id;
     private String name;
 
@@ -14,6 +17,23 @@ public class Allergenic {
         this.id = id;
         this.name = name;
     }
+
+    protected Allergenic(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+    }
+
+    public static final Creator<Allergenic> CREATOR = new Creator<Allergenic>() {
+        @Override
+        public Allergenic createFromParcel(Parcel in) {
+            return new Allergenic(in);
+        }
+
+        @Override
+        public Allergenic[] newArray(int size) {
+            return new Allergenic[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -51,5 +71,16 @@ public class Allergenic {
             list.add(allergenics.get(i).getName());
         }
         return Utility.listToStringWithDelimiter(list, ", ");
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
     }
 }

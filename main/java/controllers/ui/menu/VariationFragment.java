@@ -124,9 +124,6 @@ public class VariationFragment extends Fragment {
                 }
 
             }, 1000L);
-
-
-
         });
 
         return root;

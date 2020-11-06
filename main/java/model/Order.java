@@ -4,13 +4,19 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import controllers.MainActivity;
 
 public class Order implements Parcelable {
     private String id;
@@ -125,7 +131,19 @@ public class Order implements Parcelable {
     }
 
     public static String convertToJson(Order o)  {
-        Gson gson = new Gson();
+        ExclusionStrategy strategy = new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes f) {
+                return f.getName().startsWith("photo");
+            }
+
+            @Override
+            public boolean shouldSkipClass(Class<?> clazz) {
+                return false;
+            }
+        };
+
+        Gson gson = new GsonBuilder().addSerializationExclusionStrategy(strategy).create();
         String order = gson.toJson(o);
         Log.d("json", order);
         return order;
