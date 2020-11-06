@@ -1,7 +1,9 @@
 package controllers.ui.summary;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ import controllers.Utility;
 import model.Order;
 import model.OrderDetail;
 import nfc.SenderActivity;
+import persistence.RistodroidDBSchema;
+import persistence.SqLiteDb;
 
 public class SummaryFragment extends Fragment {
 
@@ -137,11 +141,12 @@ public class SummaryFragment extends Fragment {
 
 
 
-
+                        SQLiteDatabase db = new SqLiteDb(getContext()).getWritableDatabase();
                         String json = Order.convertToJson(MainActivity.getOrder());
+                        Order.insertIntoJsonOrderTable(db, MainActivity.getOrder().getId(), json);
                         Intent intent = new Intent(getContext(), SenderActivity.class);
-                        intent.putExtra("order", json);
-                        //startActivity(intent);
+                        intent.putExtra("order", MainActivity.getOrder().getId());
+                        startActivity(intent);
                     });
                     builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
                     });
