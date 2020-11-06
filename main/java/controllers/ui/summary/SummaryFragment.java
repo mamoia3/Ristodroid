@@ -140,7 +140,7 @@ public class SummaryFragment extends Fragment {
                         String json = Order.convertToJson(MainActivity.getOrder());
                         Intent intent = new Intent(getContext(), SenderActivity.class);
                         intent.putExtra("order", json);
-                        startActivity(intent);
+                        //startActivity(intent);
                     });
                     builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
                     });

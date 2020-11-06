@@ -36,6 +36,7 @@
     <string name="titleFailedConnectionDB">Attenzione</string>
     <string name="messageFailedConnectionDB">Impossibile connettersi al database. Useremo l\'ultima versione di menu disponibile.</string>
     <string name="emptyCategory">Non ci sono piatti in questa categoria</string>
+    <string name="emptyReceipt">Conto non disponibile</string>
     <string name="addQuantity">Aggiungi quantità</string>
     <string name="removeQuantity">Rimuovi quantità</string>
     <string name="deleteDish">Elimina piatto</string>

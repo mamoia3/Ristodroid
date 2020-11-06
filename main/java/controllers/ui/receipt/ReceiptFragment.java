@@ -43,8 +43,8 @@ public class ReceiptFragment extends Fragment {
 
         if(MainActivity.getOrder() != null){
 
-            String url = "https://www.sabersolutions.it/ristodroid/getOrder.php?id_order=" +MainActivity.getOrder().getId()
-                    +"&lang=" + Locale.getDefault().getLanguage();
+            String url = "https://www.sabersolutions.it/ristodroid/getOrder.php?id_order=" + MainActivity.getOrder().getId() +
+                    "&lang=" + Locale.getDefault().getLanguage();
             getJsonOrder(url,root);
 
         }else{
@@ -125,7 +125,6 @@ public class ReceiptFragment extends Fragment {
 
 
     private void showReceiptNotAvailable(){
-        emptyReceipt.setText(R.string.receiptAvailable);
         emptyReceipt.setVisibility(View.VISIBLE);
     }
 
