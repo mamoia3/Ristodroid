@@ -1,6 +1,7 @@
 package nfc;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -13,6 +14,8 @@ import com.example.ristodroid.R;
 
 import controllers.MainActivity;
 import model.Order;
+import persistence.RistodroidDBSchema;
+import persistence.SqLiteDb;
 
 
 public class SenderActivity extends AppCompatActivity implements OutcomingNfcManager.NfcActivity {
@@ -26,8 +29,12 @@ public class SenderActivity extends AppCompatActivity implements OutcomingNfcMan
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sender);
+        SQLiteDatabase db = new SqLiteDb(getApplicationContext()).getReadableDatabase();
         Intent intent = getIntent();
-        order = intent.getExtras().getString("order");
+        String key = intent.getExtras().getString("order");
+        order = Order.getJsonOrderDb(db, key);
+        db.delete(RistodroidDBSchema.JsonOrderTable.NAME, RistodroidDBSchema.JsonOrderTable.Cols.ID + "=?", new String[]{key});
+
 
         if (!isNfcSupported()) {
             Toast.makeText(this, R.string.nfc_not_supported, Toast.LENGTH_SHORT).show();

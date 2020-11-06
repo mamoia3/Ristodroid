@@ -1,5 +1,8 @@
 package model;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -9,14 +12,19 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.TreeMap;
 import java.util.UUID;
 
 import controllers.MainActivity;
+import persistence.RistodroidDBSchema;
 
 public class Order implements Parcelable {
     private String id;
@@ -128,6 +136,33 @@ public class Order implements Parcelable {
         if (!(o instanceof Order)) return false;
         Order order = (Order) o;
         return id == order.id;
+    }
+
+    public static void insertIntoJsonOrderTable(SQLiteDatabase db, String order_id, String json) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(RistodroidDBSchema.JsonOrderTable.Cols.ID, order_id);
+        contentValues.put(RistodroidDBSchema.JsonOrderTable.Cols.JSON, json);
+        db.insertWithOnConflict(RistodroidDBSchema.JsonOrderTable.NAME, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
+    }
+
+    public static String getJsonOrderDb(SQLiteDatabase db, String order_id) {
+        String json = null;
+        String[] projection = {
+                RistodroidDBSchema.JsonOrderTable.Cols.ID,
+                RistodroidDBSchema.JsonOrderTable.Cols.JSON
+        };
+
+        String[] args = {order_id};
+
+        Cursor cursor = db.query(RistodroidDBSchema.JsonOrderTable.NAME, projection, RistodroidDBSchema.JsonOrderTable.Cols.ID+"=?",
+                args, null, null, null);
+
+        while (cursor.moveToNext()) {
+            json = cursor.getString(cursor.getColumnIndex(RistodroidDBSchema.JsonOrderTable.Cols.JSON));
+        }
+
+        cursor.close();
+        return json;
     }
 
     public static String convertToJson(Order o)  {
