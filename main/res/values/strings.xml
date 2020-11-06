@@ -33,7 +33,7 @@
     <string name="deleteDishMessage">Are you sure to delete this dish?</string>
     <string name="addDishToOrder">Dish added to order.</string>
     <string name="removeDishToOrder">Dish removed from order.</string>
-    <string name="confirmOrderMessage">Are you sure you want to confirm the order? If you click yes, you will no longer be able to edit it!</string>
+    <string name="confirmOrderMessage">Are you sure you want to confirm the order? If you click ok, you will no longer be able to edit it!</string>
     <string name="closeOrderTitle">Close order</string>
     <string name="plusSymbol" translatable="false">+</string>
     <string name="minusSymbol" translatable="false">-</string>
