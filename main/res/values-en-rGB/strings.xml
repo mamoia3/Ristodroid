@@ -51,10 +51,11 @@
     <string name="OrderDataRequestFailed">Error! Unable to connect to server.</string>
     <string name="receiptAvailable">Receipt not available</string>
     <string name="total">TOTAL</string>
-    <string name="label_your_message">Order completed. Sending ...</string>
-    <string name="label_NFC_SEND">Order completed. Sending ...</string>
+    <string name="label_your_message">Order completed. Sending …</string>
+    <string name="label_NFC_SEND">Order completed. Sending …</string>
     <string name="nfc_sender_activity">Send order</string>
     <string name="nfc_disabled">NFC disabled on this device. Turn on to proceed</string>
     <string name="nfc_not_supported">NFC is not supported on this device</string>
+    <string name="emptyReceipt">Receipt unavaible</string>
 
 </resources>

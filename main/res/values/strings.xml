@@ -33,7 +33,7 @@
     <string name="deleteDishMessage">Are you sure to delete this dish?</string>
     <string name="addDishToOrder">Dish added to order.</string>
     <string name="removeDishToOrder">Dish removed from order.</string>
-    <string name="confirmOrderMessage">Are you sure you want to confirm the order? If you click ok, you will no longer be able to edit it!</string>
+    <string name="confirmOrderMessage">Are you sure you want to confirm the order? If you click OK, you will no longer be able to edit it!</string>
     <string name="closeOrderTitle">Close order</string>
     <string name="plusSymbol" translatable="false">+</string>
     <string name="minusSymbol" translatable="false">-</string>
@@ -49,10 +49,8 @@
 
     <!-- SEZIONE NFC  -->
 
-    <string name="message_beaming_complete">Beaming complete</string>
-    <string name="hint_your_message">Your message</string>
-    <string name="label_NFC_SEND">Order completed. Sending ...</string>
-    <string name="title_btn_set">Set Message</string>
+    <string name="message_beaming_complete" translatable="false">Beaming complete</string>
+    <string name="label_NFC_SEND">Order completed. Sending …</string>
     <string name="search">Search</string>
     <string name="nfc_sender_activity">Send order</string>
     <string name="nfc_disabled">NFC disabled on this device. Turn on to proceed</string>
@@ -71,5 +69,6 @@
         <item quantity="other">Allergenics</item>
     </plurals>
     <string name="emptyReceipt">Receipt unavaible</string>
+    <string name="label_your_message">Order completed. Sending …</string>
 
 </resources>

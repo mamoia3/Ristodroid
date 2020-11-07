@@ -139,8 +139,6 @@ public class SummaryFragment extends Fragment {
                         this.confirmButton.setVisibility(View.INVISIBLE);
                         Utility.setSummaryBadge(navMenu);
 
-
-
                         SQLiteDatabase db = new SqLiteDb(getContext()).getWritableDatabase();
                         String json = Order.convertToJson(MainActivity.getOrder());
                         Order.insertIntoJsonOrderTable(db, MainActivity.getOrder().getId(), json);
