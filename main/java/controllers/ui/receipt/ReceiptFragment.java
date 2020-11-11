@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import controllers.MainActivity;
 import controllers.Utility;
+import model.Order;
 import model.OrderDetail;
 import model.Seat;
 
@@ -68,7 +69,7 @@ public class ReceiptFragment extends Fragment {
                     double price_seat = jsonObjectOrderInformation.getDouble("price");
                     MainActivity.getOrder().setSeat(new Seat(id_seat, type_seat, price_seat));
                 }
-
+                Order prova = MainActivity.getOrder();
                 onResponseFromServer(view);
 
             }catch(JSONException e){
