@@ -55,7 +55,11 @@
     <string name="label_NFC_SEND">Order completed. Sending …</string>
     <string name="nfc_sender_activity">Send order</string>
     <string name="nfc_disabled">NFC disabled on this device. Turn on to proceed</string>
-    <string name="nfc_not_supported">NFC is not supported on this device</string>
+    <string name="nfc_not_supported">NFC is not supported on this device. You cannot send this order!</string>
     <string name="emptyReceipt">Receipt unavaible</string>
+    <string name="enableNFCRequestTitle">Enable NFC</string>
+    <string name="enableNFCRequestContent">NFC not enable! Turn on NFC to send this order.</string>
+    <string name="Close">Close</string>
+    <string name="TurnOn">Turn On</string>
 
 </resources>

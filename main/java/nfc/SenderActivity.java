@@ -1,9 +1,13 @@
 package nfc;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,41 +36,56 @@ public class SenderActivity extends AppCompatActivity implements OutcomingNfcMan
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sender);
 
-        loading = findViewById(R.id.rotateloading);
-        loading.start();
-
         SQLiteDatabase db = new SqLiteDb(getApplicationContext()).getReadableDatabase();
         Intent intent = getIntent();
         String key = intent.getExtras().getString("order");
         order = Order.getJsonOrderDb(db, key);
         db.delete(RistodroidDBSchema.JsonOrderTable.NAME, RistodroidDBSchema.JsonOrderTable.Cols.ID + "=?", new String[]{key});
 
-
         if (!isNfcSupported()) {
-            Toast.makeText(this, R.string.nfc_not_supported, Toast.LENGTH_SHORT).show();
-            finish();
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+            alertbox.setTitle(R.string.nfc_not_supported);
+            alertbox.setIcon(R.drawable.alert_circle);
+            alertbox.setPositiveButton(R.string.ok, (dialog, which) -> {
+                startActivity(new Intent(this, Dashboard.class));
+            });
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         if (!nfcAdapter.isEnabled()) {
-            Toast.makeText(this, R.string.nfc_disabled, Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+            alertbox.setTitle(R.string.enableNFCRequestTitle);
+            alertbox.setMessage(getString(R.string.enableNFCRequestContent));
+            alertbox.setPositiveButton(R.string.TurnOn, (dialog, which) -> {
+                Intent intentNfcSetting = new Intent(Settings.ACTION_NFC_SETTINGS);
+                startActivity(intentNfcSetting);
 
-             //Se nfc è disabilitato riapro l'ordine e torno all'app
-            //per consentire di abilitare nfc e inviare l'ordine nuovamente
-            MainActivity.getOrder().setConfirmed(false);
-            startActivity(new Intent(this, Dashboard.class));
+            });
+            alertbox.setNegativeButton(R.string.Close, (dialog, which) -> {
+                MainActivity.getOrder().setConfirmed(false);
+                startActivity(new Intent(this, Dashboard.class));
+            });
+            alertbox.show();
+        }else{
+            initViews();
+            // encapsulate sending logic in a separate class
+            this.outcomingNfccallback = new OutcomingNfcManager(this);
+            this.nfcAdapter.setOnNdefPushCompleteCallback(outcomingNfccallback, this);
+            this.nfcAdapter.setNdefPushMessageCallback(outcomingNfccallback, this);
         }
-
-        initViews();
-
-        // encapsulate sending logic in a separate class
-        this.outcomingNfccallback = new OutcomingNfcManager(this);
-        this.nfcAdapter.setOnNdefPushCompleteCallback(outcomingNfccallback, this);
-        this.nfcAdapter.setNdefPushMessageCallback(outcomingNfccallback, this);
     }
 
     private void initViews() {
         this.tvOutcomingMessage = findViewById(R.id.tv_out_label);
+        this.tvOutcomingMessage.setVisibility(View.VISIBLE);
         this.tvOutcomingMessage.setText(R.string.label_NFC_SEND);
+        loading = findViewById(R.id.rotateloading);
+        loading.setVisibility(View.VISIBLE);
+        loading.start();
         setOutGoingMessage();
     }
 
