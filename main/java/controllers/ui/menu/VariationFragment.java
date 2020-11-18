@@ -100,7 +100,7 @@ public class VariationFragment extends Fragment {
             orderDetail.setVariationPlusList(plusAdapter.getVariationsPlusOrder());
             MainActivity.getOrder().addToOrder(orderDetail);
 
-            Snackbar.make(navMenu, R.string.addDishToOrder, Snackbar.LENGTH_LONG).setAnchorView(navMenu).show();
+            Snackbar.make(navMenu, R.string.addDishToOrder, Snackbar.LENGTH_SHORT).setAnchorView(navMenu).show();
             Utility.setSummaryBadge(navMenu);
 
             Bundle bundle = new Bundle();

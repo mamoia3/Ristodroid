@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +44,8 @@ public class SenderActivity extends AppCompatActivity implements OutcomingNfcMan
         db.delete(RistodroidDBSchema.JsonOrderTable.NAME, RistodroidDBSchema.JsonOrderTable.Cols.ID + "=?", new String[]{key});
 
         if (!isNfcSupported()) {
-            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-            alertbox.setTitle(R.string.nfc_not_supported);
-            alertbox.setIcon(R.drawable.alert_circle);
-            alertbox.setPositiveButton(R.string.ok, (dialog, which) -> {
-                startActivity(new Intent(this, Dashboard.class));
-            });
+            Toast.makeText(this,R.string.nfc_not_supported, Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 
